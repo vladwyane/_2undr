@@ -12,14 +12,19 @@ public class ShoppingCart extends BasePage{
 
     @Override
     public void open() {
-
+        soppingCart.click();
+        invisibilityPreLoader();
     }
+
+    @FindBy(id = "top-cart-btn-checkout")
+    private WebElement checkoutBut;
 
     @FindBy(xpath = "//*[@title='Secured Checkout']")
     private WebElement secCheckout;
 
-    public ShippingMethod clickSecCheckout() {
-        secCheckout.click();
+    public ShippingMethod clickCheckoutBut() {
+        checkoutBut.click();
         return new ShippingMethod(driver);
     }
+
 }

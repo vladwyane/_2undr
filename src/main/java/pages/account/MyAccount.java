@@ -48,7 +48,7 @@ public class MyAccount extends BasePage{
 
     public MyAccount checkErrorPasswordMes() {
         String str = getSuccessMessReg();
-        Assert.assertEquals(str, "INCORRECT CAPTCHA");
+        Assert.assertEquals(str, "YOU DID NOT SIGN IN CORRECTLY OR YOUR ACCOUNT IS TEMPORARILY DISABLED.");
         return new MyAccount(driver);
     }
 

@@ -126,7 +126,6 @@ public class Collections extends BasePage {
         addToCartBut.click();
         invisibilityPreLoader();
         open();
-        invisibilityPreLoader();
     }
 
     public void clickFiveElement(int price) {

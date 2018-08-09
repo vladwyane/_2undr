@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import static org.testng.Assert.assertTrue;
 
 public abstract class BasePage {
@@ -16,13 +17,13 @@ public abstract class BasePage {
         this.driver = driver;
     }
 
-    @FindBy(css= "div.account")
+    @FindBy(css = "div.account")
     protected WebElement accountLogin;
 
-    @FindBy(css= ".search-icon")
+    @FindBy(css = ".search-icon")
     protected WebElement searchIcon;
 
-    @FindBy(css= ".action.showcart")
+    @FindBy(css = ".action.showcart")
     protected WebElement soppingCart;
 
     protected void type(WebElement webElement, String text) {
@@ -41,19 +42,17 @@ public abstract class BasePage {
         }
     }
 
-    public void invisibilityPreLoader(){
+    public void invisibilityPreLoader() {
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//body[contains(@class, 'ajax-loading')]")));
     }
 
     protected boolean checkHTMLAttribute(WebElement element, String attribute, String name) {
-        try {
-            String str = element.getAttribute(attribute);
-            assertTrue(str.equals(name));
+        String str = element.getAttribute(attribute);
+        if (str.equals(name)) {
             return true;
-        } catch (NoSuchElementException e) {
-            return false;
         }
+        return false;
     }
 
 }

@@ -58,11 +58,12 @@ public class AccountPopup extends BasePage{
         return new MyAccount(driver);
     }
 
-    public AccountPopup logOut() {
-            checkHTMLAttribute(accountLogin, "class", "account");
+    public void logOut() {
+        if (checkHTMLAttribute(accountLogin, "class", "account") == true) {
             accountLogin.click();
             invisibilityPreLoader();
             clickSighOutBut();
-            return new AccountPopup(driver);
+        }
     }
+
 }
