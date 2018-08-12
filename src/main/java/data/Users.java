@@ -2,9 +2,9 @@ package data;
 
 public enum Users {
 
-    DWYANE("Dwyane", "Wade", "Dwyane@i.ua", "JR6GMs4ywG"),
-    VLAD("Lebron", "James", "vladwyane@gmail.com", "JR6GMs4ywG"),
-    INVALID("Invalid", "Incorrect", "Dwyane@i.ua", "Invalid19");
+    DWYANE("Dwyane", "Wade", "Dwyane@i.ua", "JR6GMs4ywG", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "ALABAMA"),
+    LEBRON("Lebron", "James", "vladwyane@gmail.com", "JR6GMs4ywG", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "FLORIDA"),
+    INVALID("Invalid", "Incorrect", "Dwyane@i.ua", "Invalid19", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "BORN");
 
     public String getFirstUserName() {
         return userFirstName;
@@ -22,15 +22,39 @@ public enum Users {
         return email;
     }
 
+    public String getStAddress() {
+        return stAddress;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
     private String userFirstName;
     private String userLastName;
     private String email;
     private String password;
+    private String stAddress;
+    private String company;
+    private String city;
+    private String state;
 
-    Users(String userFirstName, String userLastName, String email, String password) {
+    Users(String userFirstName, String userLastName, String email, String password, String stAddress, String company, String city, String state) {
         this.userFirstName = userFirstName;
         this.userLastName = userLastName;
         this.email = email;
         this.password = password;
+        this.stAddress = stAddress;
+        this.company = company;
+        this.city = city;
+        this.state = state;
     }
 }

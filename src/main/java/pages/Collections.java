@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import pages.account.AccountWishList;
 import utils.ConfigProperties;
 import utils.Functions;
 
@@ -50,7 +51,7 @@ public class Collections extends BasePage {
     @FindBys({@FindBy(xpath = "//*[@data-role='tocart-form']")})
     private List<WebElement> productsInStock;
 
-    @FindBys({@FindBy(css = ".price-wrapper ")})
+    @FindBys({@FindBy(css = ".price-wrapper")})
     private List<WebElement> productsPrice;
 
     @FindBy(xpath = "(//span[@class='toolbar-number'])[3]")
@@ -62,15 +63,8 @@ public class Collections extends BasePage {
     @FindBy(xpath = "(//a[@title='Next'])[2]")
     private WebElement nextPagination;
 
-    @FindBy(xpath = "//*[@option-label='Large']")
-    private WebElement sizeL;
-
-    public void clickSizeL() {
-        sizeL.click();
-    }
-
-    @FindBy(xpath = "//*[@title='Add to Cart']")
-    private WebElement addToCart;
+    @FindBys({@FindBy(css = ".size .swatch-option")})
+    private List<WebElement> listSize;
 
     @FindBy(xpath = "(//*[@data-role='closeBtn'])[1]")
     private WebElement closePopapBut;
@@ -84,6 +78,9 @@ public class Collections extends BasePage {
     @FindBys( {@FindBy(xpath = "//*[@data-role='tocart-form']//ancestor::div[@class='product-item-inner']//preceding-sibling::div[contains(@class, 'price-box')]/span/span")} )
     private List<WebElement> productsPriceInStock;
 
+    @FindBys( {@FindBy(xpath = "//*[@data-role='tocart-form']//ancestor::div[@class='product-item-inner']//preceding-sibling::div[@class='wrap-product-name']//a[@class='action towishlist']")} )
+    private List<WebElement> productsWishListInStock;
+
     @FindBy(xpath = "//*[@title='Add to Cart']")
     private WebElement addToCartBut;
 
@@ -96,20 +93,18 @@ public class Collections extends BasePage {
     @FindBy(id = "qty")
     private WebElement qtyInput;
 
+    @FindBy(css = ".add-to-cart-modal._show")
+    private WebElement addToCartModal;
 
+    @FindBy(id = "amstockstatus-stockalert")
+    private WebElement outOfStockAlert;
 
     public void addProductInStockToShopCart(double price, String amount) throws Exception {
         for (int i = 0; i < productsTitleInStock.size(); i++) {
             double webPrice = Double.parseDouble(productsPriceInStock.get(i).getAttribute("data-price-amount"));
             if (webPrice == price) {
                 productsTitleInStock.get(i).click();
-                invisibilityPreLoader();
-                sizeL.click();
-                type(qtyInput, amount);
-                addToCartBut.click();
-                invisibilityPreLoader();
-                open();
-                invisibilityPreLoader();
+                chooseSizeAndAmount(amount);
                 return;
             }
             if (i == productsTitleInStock.size() - 1 && isElementPresent(nextPagination) == true){
@@ -120,37 +115,46 @@ public class Collections extends BasePage {
             }
         }
         productsTitleInStock.get(productsTitleInStock.size() - 1).click();
+        chooseSizeAndAmount(amount);
+    }
+
+    public void addProductInStockToWishList(double price) throws Exception {
+        for (int i = 0; i < productsWishListInStock.size(); i++) {
+            double webPrice = Double.parseDouble(productsPriceInStock.get(i).getAttribute("data-price-amount"));
+            if (webPrice == price) {
+                productsWishListInStock.get(i).click();
+                return;
+            }
+            if (i == productsWishListInStock.size() - 1 && isElementPresent(nextPagination) == true){
+                invisibilityPreLoader();
+                nextPagination.click();
+                i = 0;
+                invisibilityPreLoader();
+            }
+        }
+        productsWishListInStock.get(productsWishListInStock.size() - 1).click();
+    }
+
+    public void chooseSizeAndAmount(String amount) {
         invisibilityPreLoader();
-        sizeL.click();
+        clickSizeRadioBut();
         type(qtyInput, amount);
         addToCartBut.click();
-        invisibilityPreLoader();
+        waitVissibleAddToCartPopap();
         open();
     }
 
-    public void clickFiveElement(int price) {
-        invisibilityPreLoader();
-        for (int i = 0; i < productsQuickViewBut.size(); i++) {
-            int webPrice = Integer.parseInt(productsPrice.get(i).getAttribute("data-price-amount"));
-            WebElement quickViewBut = productsTitle.get(i);
-            if(webPrice >= price){
-                quickViewBut.click();
+    public void  clickSizeRadioBut() {
+        for (WebElement l : listSize) {
+            if(isElementPresent(l) == true) {
+                l.click();
                 invisibilityPreLoader();
-                if(isElementPresent(addToCart) == true) {
-                    clickSizeL();
-                    addToCart.click();
-                    invisibilityPreLoader();
-                    closePopapBut.click();
-                }
-                closePopapBut.click();
+                if(isElementPresent(outOfStockAlert) == true) {
+                    continue;
+                } else return;
             }
-
         }
-
-
-
     }
-
 
     public void chooseCollections(Category category) throws InterruptedException {
         invisibilityPreLoader();
@@ -198,6 +202,11 @@ public class Collections extends BasePage {
         String actualTotal = String.valueOf(actTotal);
         Assert.assertEquals(actualTotal, expectedTotal);
         return new Collections(driver);
+    }
+
+    public void waitVissibleAddToCartPopap() {
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.visibilityOf(addToCartModal));
     }
 
 }

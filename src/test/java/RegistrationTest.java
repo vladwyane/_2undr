@@ -29,14 +29,14 @@ public class RegistrationTest extends TestBase{
     @Test(description = "Test of registration user with newsletter and valid data", priority = 1)
     public void testRegistrationUser() throws InterruptedException {
         accountPopup.clickCreateAccBut();
-        createAccount.registrationWithNewsletter(Users.VLAD);
+        createAccount.registrationWithNewsletter(Users.LEBRON);
         myAccount.invisibilityPreLoader();
         myAccount.checkSuccessMes();
     }
 
     @Test(description = "Test of login user with valid data", priority = 2)
     public void testLoginUser() throws InterruptedException {
-        accountPopup.signIn(Users.VLAD);
+        accountPopup.signIn(Users.LEBRON);
         myAccount.invisibilityPreLoader();
         myAccount.checkTitle();
     }
@@ -51,7 +51,7 @@ public class RegistrationTest extends TestBase{
     @Test(description = "Test of registration with already existing data",priority = 4)
     public void testErrorRegistration() throws InterruptedException {
         accountPopup.clickCreateAccBut();
-        createAccount.registrationWithNewsletter(Users.VLAD);
+        createAccount.registrationWithNewsletter(Users.LEBRON);
         myAccount.invisibilityPreLoader();
         myAccount.checkErrorAlreadyAccMes();
     }

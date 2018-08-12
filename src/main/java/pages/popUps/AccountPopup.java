@@ -52,9 +52,11 @@ public class AccountPopup extends BasePage{
 
 
     public MyAccount signIn(Users users) throws InterruptedException {
-        type(userEmail, users.getEmail());
-        type(userPass, users.getPassword());
-        clickLoginButton();
+        if (checkHTMLAttribute(accountLogin, "class", "account") == false) {
+            type(userEmail, users.getEmail());
+            type(userPass, users.getPassword());
+            clickLoginButton();
+        }
         return new MyAccount(driver);
     }
 

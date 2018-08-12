@@ -17,8 +17,10 @@ public class CreateAccount extends BasePage {
     public void open() {
         driver.get(ConfigProperties.getProperty("home.url"));
         invisibilityPreLoader();
-        accountLogin.click();
-        invisibilityPreLoader();
+        if (checkHTMLAttribute(accountLogin, "class", "account") == false) {
+            accountLogin.click();
+            invisibilityPreLoader();
+        }
     }
 
     @FindBy(id = "firstname")

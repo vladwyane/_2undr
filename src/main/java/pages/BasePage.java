@@ -5,8 +5,11 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 import static org.testng.Assert.assertTrue;
 
@@ -25,6 +28,17 @@ public abstract class BasePage {
 
     @FindBy(css = ".action.showcart")
     protected WebElement soppingCart;
+
+    @FindBys( {@FindBy(css = "#account-nav ul li")} )
+    private List<WebElement> accountNavList;
+
+    public WebElement getActiveAccountNavItem() {
+        for(WebElement element : accountNavList) {
+            String name = element.getText();
+            return element;
+        }
+        return null;
+    }
 
     protected void type(WebElement webElement, String text) {
         webElement.clear();
