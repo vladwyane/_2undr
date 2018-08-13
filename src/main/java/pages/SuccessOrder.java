@@ -30,7 +30,12 @@ public class SuccessOrder extends BasePage{
     @FindBy(css= "a.continue")
     private WebElement continueBut;
 
+    public String getOrderNumber() {
+        return orderNumber.getText();
+    }
+
     public String clickOrderNumber() {
+        invisibilityPreLoader();
         String ordNum = orderNumber.getText();
         orderNumber.click();
         return ordNum;

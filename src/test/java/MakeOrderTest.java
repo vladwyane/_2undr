@@ -5,6 +5,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.*;
+import pages.account.AccountMyOrders;
 import pages.popUps.AccountPopup;
 import testBase.TestBase;
 import utils.Wait;
@@ -19,6 +20,7 @@ public class MakeOrderTest extends TestBase{
     private ShippingMethod shippingMethod  = PageFactory.initElements(initDriver(),  ShippingMethod.class);
     private PaymentMethod paymentMethod  = PageFactory.initElements(initDriver(), PaymentMethod.class);
     private SuccessOrder successOrder = PageFactory.initElements(initDriver(), SuccessOrder.class);
+    private AccountMyOrders accountMyOrders = PageFactory.initElements(initDriver(), AccountMyOrders.class);
 
     @BeforeMethod
     public void preCondition() {
@@ -45,7 +47,7 @@ public class MakeOrderTest extends TestBase{
     public void testMakeOrderUsingCheck() throws Exception {
         accountPopup.signIn(Users.LEBRON);
         collections.open();
-        collections.addProductInStockToShopCart(34.0, "4");
+        String titleAddedToShoppingCart = collections.addProductInStockToShopCart(34.0, "1");
         shoppingCart.open();
         shoppingCart.clickCheckoutBut();
         shippingMethod.fillShippingAddressForUSA(Users.LEBRON);
@@ -53,8 +55,8 @@ public class MakeOrderTest extends TestBase{
         shippingMethod.clickContinueBut();
         paymentMethod.choosePaymentMethod("Check");
         paymentMethod.clickCheckboxTermCond();
-        paymentMethod.clickPlaceOrderBut();
-        successOrder.clickOrderNumber();
-        wait.threadsSleepWait();
+        String totalPrice = paymentMethod.clickPlaceOrderBut();
+        String orderNumber = successOrder.clickOrderNumber();
+        accountMyOrders.checkAccountOrder(orderNumber, titleAddedToShoppingCart, totalPrice);
     }
 }

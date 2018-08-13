@@ -52,6 +52,9 @@ public class PaymentMethod extends BasePage{
     @FindBys( {@FindBy(css = ".checkout-agreement")} )
     private List<WebElement> listCheckboxTermCond;
 
+    @FindBy(xpath = "//tr[@class='grand totals']//span[@class='price']")
+    private WebElement totalPrice;
+
     public void choosePaymentMethod(String nameMethod) {
         invisibilityPreLoader();
         if(nameMethod.equals("CreditCart"))
@@ -103,15 +106,17 @@ public class PaymentMethod extends BasePage{
         }
     }
 
-    public void clickPlaceOrderBut() {
+    public String clickPlaceOrderBut() {
         invisibilityPreLoader();
+        String price = totalPrice.getText();
         for(WebElement element : listPlaceOrderBut) {
             boolean res = element.isDisplayed();
             if( res == true) {
                 element.click();
-                return;
+                return price;
             } else continue;
         }
+        return  price;
     }
 
     public void clickCheckboxTermCond() {

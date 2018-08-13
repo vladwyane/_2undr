@@ -102,13 +102,15 @@ public class Collections extends BasePage {
     @FindBy(css = ".message.info.empty")
     private WebElement emptyTitle;
 
-    public void addProductInStockToShopCart(double price, String amount) throws Exception {
+    public String addProductInStockToShopCart(double price, String amount) throws Exception {
+        String webElementSuccess;
         for (int i = 0; i < productsTitleInStock.size(); i++) {
             double webPrice = Double.parseDouble(productsPriceInStock.get(i).getAttribute("data-price-amount"));
             if (webPrice == price) {
+                webElementSuccess = productsTitleInStock.get(i).getText();
                 productsTitleInStock.get(i).click();
                 chooseSizeAndAmount(amount);
-                return;
+                return webElementSuccess;
             }
             if (i == productsTitleInStock.size() - 1 && isElementPresent(nextPagination) == true){
                 invisibilityPreLoader();
@@ -117,8 +119,10 @@ public class Collections extends BasePage {
                 invisibilityPreLoader();
             }
         }
+        webElementSuccess = productsTitleInStock.get(productsWishListInStock.size() - 1).getText();
         productsTitleInStock.get(productsTitleInStock.size() - 1).click();
         chooseSizeAndAmount(amount);
+        return webElementSuccess;
     }
 
     public String addProductInStockToWishList(double price) throws Exception {

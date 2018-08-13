@@ -25,7 +25,7 @@ public class AccountWishListTest extends TestBase {
     public void testAmountOfAllGoods() throws Exception {
         accountPopup.signIn(Users.LEBRON);
         collections.open();
-        String webElementAddedToWishList = collections.addProductInStockToWishList(34);
-        accountWishList.checkAccountWishList(webElementAddedToWishList);
+        String webElementTitleAddedToWishList = collections.addProductInStockToWishList(34);
+        accountWishList.checkAccountWishList(webElementTitleAddedToWishList);
     }
 }

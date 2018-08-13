@@ -57,6 +57,12 @@ public class ShippingMethod extends BasePage {
     @FindBy(css = "button.continue")
     private WebElement continueBut;
 
+    @FindBy(css = ".shipping-address-item.selected-item")
+    private WebElement shippingAddressSelected;
+
+    @FindBy(css = ".checkout-shipping-method .step-title")
+    private WebElement shippingMethodTitle;
+
 
     public void chooseState(String stateName) {
         stateSelect.click();
@@ -76,15 +82,17 @@ public class ShippingMethod extends BasePage {
     }
 
     public void fillShippingAddressForUSA(Users users) {
-        waitFistNameFieldVisible();
-        type(firstNameField, users.getFirstUserName());
-        type(lastNameField, users.getLastUserName());
-        type(companyField, users.getCompany());
-        type(addressField, users.getStAddress());
-        type(cityField, users.getCity());
-        type(zipCodeField, users.getZipCode());
-        type(telField, users.getTelephone());
-        chooseState(users.getState());
+        if(isElementPresent(shippingAddressSelected)  == false) {
+            waitShippingTitleVisible();
+            type(firstNameField, users.getFirstUserName());
+            type(lastNameField, users.getLastUserName());
+            type(companyField, users.getCompany());
+            type(addressField, users.getStAddress());
+            type(cityField, users.getCity());
+            type(zipCodeField, users.getZipCode());
+            type(telField, users.getTelephone());
+            chooseState(users.getState());
+        }
     }
 
     public void chooseShippingMethod() {
@@ -103,9 +111,9 @@ public class ShippingMethod extends BasePage {
         return  new PaymentMethod(driver);
     }
 
-    public void waitFistNameFieldVisible() {
+    public void waitShippingTitleVisible() {
         WebDriverWait wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.visibilityOf(firstNameField));
+        wait.until(ExpectedConditions.visibilityOf(shippingMethodTitle));
     }
 
     public void waitShippingMethodLoading() {

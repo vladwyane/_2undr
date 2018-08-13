@@ -4,7 +4,8 @@ public enum Users {
 
     DWYANE("Dwyane", "Wade", "Dwyane@i.ua", "JR6GMs4ywG", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "ALABAMA", "33101", "123-456-7890"),
     LEBRON("Lebron", "James", "vladwyane@gmail.com", "JR6GMs4ywG", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "FLORIDA", "33101", "(123) 456-7890"),
-    INVALID("Invalid", "Incorrect", "vladwyane@gmail.com", "Invalid19", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "BORN", "33101", "123-456-7890");
+    INVALID("Invalid", "Incorrect", "vladwyane@gmail.com", "Invalid19", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "BORN", "33101", "123-456-7890"),
+    ADMIN("TestAdmin", "Incorrect", "testing", "dwzXBQ6K5iGx", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "BORN", "33101", "123-456-7890");
 
     public String getFirstUserName() {
         return userFirstName;
