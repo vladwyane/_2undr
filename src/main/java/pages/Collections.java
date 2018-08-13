@@ -99,6 +99,9 @@ public class Collections extends BasePage {
     @FindBy(id = "amstockstatus-stockalert")
     private WebElement outOfStockAlert;
 
+    @FindBy(css = ".message.info.empty")
+    private WebElement emptyTitle;
+
     public void addProductInStockToShopCart(double price, String amount) throws Exception {
         for (int i = 0; i < productsTitleInStock.size(); i++) {
             double webPrice = Double.parseDouble(productsPriceInStock.get(i).getAttribute("data-price-amount"));
@@ -118,12 +121,14 @@ public class Collections extends BasePage {
         chooseSizeAndAmount(amount);
     }
 
-    public void addProductInStockToWishList(double price) throws Exception {
+    public String addProductInStockToWishList(double price) throws Exception {
+        String webElementSuccess;
         for (int i = 0; i < productsWishListInStock.size(); i++) {
             double webPrice = Double.parseDouble(productsPriceInStock.get(i).getAttribute("data-price-amount"));
             if (webPrice == price) {
+                webElementSuccess = productsTitleInStock.get(i).getText();
                 productsWishListInStock.get(i).click();
-                return;
+                return webElementSuccess;
             }
             if (i == productsWishListInStock.size() - 1 && isElementPresent(nextPagination) == true){
                 invisibilityPreLoader();
@@ -132,7 +137,9 @@ public class Collections extends BasePage {
                 invisibilityPreLoader();
             }
         }
+        webElementSuccess = productsTitleInStock.get(productsWishListInStock.size() - 1).getText();
         productsWishListInStock.get(productsWishListInStock.size() - 1).click();
+        return webElementSuccess;
     }
 
     public void chooseSizeAndAmount(String amount) {
@@ -182,20 +189,26 @@ public class Collections extends BasePage {
     }
 
     public int amountProductWithImage() throws InterruptedException {
-        int totalProduct = productImage.size();
-        invisibilityPreLoader();
-        while (isElementPresent(nextPagination) == true) {
-            nextPagination.click();
+        if(isElementPresent(emptyTitle) == true){
+            return 0;
+        } else {
+            int totalProduct = productImage.size();
             invisibilityPreLoader();
-            int amountProduct = productImage.size();
-            totalProduct += amountProduct;
+            while (isElementPresent(nextPagination) == true) {
+                nextPagination.click();
+                invisibilityPreLoader();
+                int amountProduct = productImage.size();
+                totalProduct += amountProduct;
+            }
+            return  totalProduct;
         }
-        return  totalProduct;
     }
 
     public Collections checkAmountProductImage(int actTotal ) {
         String expectedTotal;
-        if (isElementPresent(total)){
+        if(isElementPresent(emptyTitle) == true){
+            expectedTotal = "0";
+        } else if(isElementPresent(total)){
             expectedTotal = total.getText();
         } else
             expectedTotal = totalWithoutPagination.getText();

@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import static org.testng.Assert.assertTrue;
 
 public abstract class BasePage {
     protected WebDriver driver;
+    protected SoftAssert softAssert = new SoftAssert();
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
@@ -34,8 +36,10 @@ public abstract class BasePage {
 
     public WebElement getActiveAccountNavItem() {
         for(WebElement element : accountNavList) {
-            String name = element.getText();
-            return element;
+            String st = element.getAttribute("class");
+            if(element.getAttribute("class").equals("nav item current")) {
+                return element;
+            }
         }
         return null;
     }

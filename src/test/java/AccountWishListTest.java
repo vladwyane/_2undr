@@ -1,4 +1,5 @@
 import data.Users;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -8,7 +9,7 @@ import pages.account.AccountWishList;
 import pages.popUps.AccountPopup;
 import testBase.TestBase;
 
-public class AccontWishListTest extends TestBase {
+public class AccountWishListTest extends TestBase {
 
     private CreateAccount createAccount  = PageFactory.initElements(initDriver(), CreateAccount.class);
     private AccountWishList accountWishList  = PageFactory.initElements(initDriver(), AccountWishList.class);
@@ -24,7 +25,7 @@ public class AccontWishListTest extends TestBase {
     public void testAmountOfAllGoods() throws Exception {
         accountPopup.signIn(Users.LEBRON);
         collections.open();
-        collections.addProductInStockToWishList(43);
-        accountWishList.getActiveAccountNavItem();
+        String webElementAddedToWishList = collections.addProductInStockToWishList(34);
+        accountWishList.checkAccountWishList(webElementAddedToWishList);
     }
 }

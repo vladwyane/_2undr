@@ -27,18 +27,26 @@ public class RegistrationTest extends TestBase{
     }
 
     @Test(description = "Test of registration user with newsletter and valid data", priority = 1)
-    public void testRegistrationUser() throws InterruptedException {
+    public void testRegistrationUserWithNewsLet() throws InterruptedException {
         accountPopup.clickCreateAccBut();
         createAccount.registrationWithNewsletter(Users.LEBRON);
         myAccount.invisibilityPreLoader();
         myAccount.checkSuccessMes();
     }
 
+    @Test(description = "Test of registration user with newsletter and valid data", priority = 1)
+    public void testRegistrationUser() throws InterruptedException {
+        accountPopup.clickCreateAccBut();
+        createAccount.registrationWithoutNewsletter(Users.DWYANE);
+        myAccount.invisibilityPreLoader();
+        myAccount.checkDashbordInfoAfterReg(Users.DWYANE);
+    }
+
     @Test(description = "Test of login user with valid data", priority = 2)
     public void testLoginUser() throws InterruptedException {
         accountPopup.signIn(Users.LEBRON);
         myAccount.invisibilityPreLoader();
-        myAccount.checkTitle();
+        myAccount.checkDashbordInfo(Users.LEBRON);
     }
 
     @Test(description = "Test of login user with invalid data",priority = 3)

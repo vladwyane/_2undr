@@ -63,4 +63,14 @@ public class CreateAccount extends BasePage {
         clickCreateAccBut();
         return new MyAccount(driver);
     }
+
+    public MyAccount registrationWithoutNewsletter(Users users) throws InterruptedException {
+        type(firstName, users.getFirstUserName());
+        type(lastName, users.getLastUserName());
+        type(email, users.getEmail());
+        type(password, users.getPassword());
+        type(passwordConf, users.getPassword());
+        clickCreateAccBut();
+        return new MyAccount(driver);
+    }
 }

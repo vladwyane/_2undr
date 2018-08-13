@@ -2,9 +2,11 @@ package pages;
 
 import data.CreditCarts;
 import data.Users;
+import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -46,6 +48,9 @@ public class PaymentMethod extends BasePage{
 
     @FindBys( {@FindBy(xpath = "//button[@title='Place Order']")} )
     private List<WebElement> listPlaceOrderBut;
+
+    @FindBys( {@FindBy(css = ".checkout-agreement")} )
+    private List<WebElement> listCheckboxTermCond;
 
     public void choosePaymentMethod(String nameMethod) {
         invisibilityPreLoader();
@@ -104,6 +109,18 @@ public class PaymentMethod extends BasePage{
             boolean res = element.isDisplayed();
             if( res == true) {
                 element.click();
+                return;
+            } else continue;
+        }
+    }
+
+    public void clickCheckboxTermCond() {
+        invisibilityPreLoader();
+        for(WebElement element : listCheckboxTermCond) {
+            boolean res = element.isDisplayed();
+            if( res == true) {
+                Actions build = new Actions(driver);
+                build.moveToElement(element, 1, 1).click().build().perform();
                 return;
             } else continue;
         }

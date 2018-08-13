@@ -18,6 +18,7 @@ public class MakeOrderTest extends TestBase{
     private ShoppingCart shoppingCart  = PageFactory.initElements(initDriver(),  ShoppingCart.class);
     private ShippingMethod shippingMethod  = PageFactory.initElements(initDriver(),  ShippingMethod.class);
     private PaymentMethod paymentMethod  = PageFactory.initElements(initDriver(), PaymentMethod.class);
+    private SuccessOrder successOrder = PageFactory.initElements(initDriver(), SuccessOrder.class);
 
     @BeforeMethod
     public void preCondition() {
@@ -36,6 +37,7 @@ public class MakeOrderTest extends TestBase{
         shippingMethod.clickContinueBut();
         paymentMethod.choosePaymentMethod("CreditCart");
         paymentMethod.fillPaymentInfo(CreditCarts.VISA);
+        paymentMethod.clickCheckboxTermCond();
         paymentMethod.clickPlaceOrderBut();
     }
 
@@ -50,7 +52,9 @@ public class MakeOrderTest extends TestBase{
         shippingMethod.chooseShippingMethod();
         shippingMethod.clickContinueBut();
         paymentMethod.choosePaymentMethod("Check");
+        paymentMethod.clickCheckboxTermCond();
         paymentMethod.clickPlaceOrderBut();
+        successOrder.clickOrderNumber();
         wait.threadsSleepWait();
     }
 }

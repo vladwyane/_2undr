@@ -22,11 +22,23 @@ public class AccountWishList extends BasePage{
     }
 
     @FindBy(xpath = "//*[@data-bind='html: message.text']")
-    private WebElement successMessReg;
+    private WebElement successMessWishList;
 
     @FindBys( {@FindBy(xpath = "//div[@class='products-grid wishlist']//div[@class='product-item-name']")} )
     private List<WebElement> prodWishListTitle;
 
     @FindBy(xpath = "//div[@class='products-grid wishlist']/h2[@class='page-title']")
     private WebElement accountWishListTitle;
+
+    public void checkAccountWishList(String elementAddedToWishList) {
+        String title = accountWishListTitle.getText();
+        String activeAccountNavItem = getActiveAccountNavItem().getText();
+        String actualProductTitle = prodWishListTitle.get(prodWishListTitle.size() - 1).getText();
+        String sucWishListMes = successMessWishList.getText();
+        softAssert.assertEquals(title, "MY WISHLIST");
+        softAssert.assertEquals(activeAccountNavItem, "MY WISH LIST");
+        softAssert.assertEquals(actualProductTitle, elementAddedToWishList);
+        softAssert.assertEquals(sucWishListMes, elementAddedToWishList + " HAS BEEN ADDED TO YOUR WISH LIST. CLICK HERE TO CONTINUE SHOPPING.");
+        softAssert.assertAll();
+    }
 }

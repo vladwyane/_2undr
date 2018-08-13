@@ -39,6 +39,12 @@ public class ShippingMethod extends BasePage {
     @FindBy(name = "city")
     private WebElement cityField;
 
+    @FindBy(name = "telephone")
+    private WebElement telField;
+
+    @FindBy(name = "postcode")
+    private WebElement zipCodeField;
+
     @FindBy(xpath = "(//span[@class='select2-selection__rendered'])[1]")
     private WebElement stateSelect;
 
@@ -76,6 +82,8 @@ public class ShippingMethod extends BasePage {
         type(companyField, users.getCompany());
         type(addressField, users.getStAddress());
         type(cityField, users.getCity());
+        type(zipCodeField, users.getZipCode());
+        type(telField, users.getTelephone());
         chooseState(users.getState());
     }
 
