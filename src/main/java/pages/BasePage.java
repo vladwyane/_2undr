@@ -78,4 +78,9 @@ public abstract class BasePage {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".admin__form-loading-mask")));
     }
 
+    public void waitLoaderkInvisible() {
+        WebDriverWait wait = new WebDriverWait(driver, 60);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".loading-mask")));
+    }
+
 }

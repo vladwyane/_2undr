@@ -26,6 +26,13 @@ public class AdminMagentaTest extends TestBase{
         catalog.clickAddNewProductBut();
         catalog.chooseAttributSet("Underwear");
         catalog.fillProductAttribute();
+        catalog.chooseVisibilityValue("Catalog, Search");
+        catalog.chooseCategory("Underwear", "Collections", "Day Shift");
+        catalog.chooseCountryOfManufac("China");
+        catalog.chooseProductStyle("Boxer Brief");
+        catalog.fillDimensionField();
+        catalog.chooseProductModel("Day Shift Boxer Brief");
+        catalog.fillProductContent();
         wait.threadsSleepWait();
     }
 

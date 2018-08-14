@@ -1,7 +1,10 @@
 package pages.adminMagenta;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import pages.BasePage;
@@ -46,7 +49,47 @@ public class Catalog extends BasePage {
     @FindBy(name = "product[tax_class_id]")
     private WebElement taxClassSelect;
 
+    @FindBy(name = "product[visibility]")
+    private WebElement visibilitySelect;
 
+    @FindBys( {@FindBy(xpath = "//*[@name='product[visibility]']/option")} )
+    private List<WebElement> listVisibility;
+
+    @FindBy(xpath = "//span[contains(text(), 'Categories')]//ancestor::label//following-sibling::div")
+    private WebElement categoriesSelect;
+
+    @FindBys( {@FindBy(xpath = "//ul[@data-level='2']/li")} )
+    private List<WebElement> listCategory2Level;
+
+    @FindBys( {@FindBy(xpath = "//ul[@data-level='3']/li")} )
+    private List<WebElement> listCategory3Level;
+
+    @FindBys( {@FindBy(xpath = "//ul[@data-level='4']/li/div")} )
+    private List<WebElement> listCategory4Level;
+
+    @FindBy(name = "product[country_of_manufacture]")
+    private WebElement countryOfManufactureSelect;
+
+    @FindBys( {@FindBy(xpath = "//*[@name='product[country_of_manufacture]']/option")} )
+    private List<WebElement> listCounryOfManufacture;
+
+    @FindBy(name = "product[dimensions_lwh]")
+    private WebElement dimensionsField;
+
+    @FindBy(name = "product[style]")
+    private WebElement productStyleSelect;
+
+    @FindBys( {@FindBy(xpath = "//*[@name='product[style]']/option")} )
+    private List<WebElement> listProductStyle;
+
+    @FindBy(name = "product[model]")
+    private WebElement productModelSelect;
+
+    @FindBys( {@FindBy(xpath = "//*[@name='product[model]']/option")} )
+    private List<WebElement> listProductModel;
+
+    @FindBy(xpath = "//div[@data-index='content']")
+    private WebElement productContent;
 
     public void clickCatalogNavItem() {
         invisibilityPreLoader();
@@ -67,9 +110,108 @@ public class Catalog extends BasePage {
         waitLoadingMaskInvisible();
         attributSetSelect.click();
         for (WebElement element : listAttributSet){
-            if(element.getText().equals(name))
+            if(element.getText().equals(name)) {
                 element.click();
+                return;
+            }
         }
+    }
+
+    public void chooseVisibilityValue(String name) {
+        waitLoaderkInvisible();
+        visibilitySelect.click();
+        for (WebElement element : listVisibility){
+            if(element.getText().equals(name)) {
+                element.click();
+                return;
+            }
+        }
+        listVisibility.get(listVisibility.size() - 1).click();
+    }
+
+    public void openDropCategory2Level(String nameCat2Level) {
+        for (WebElement element : listCategory2Level){
+            if(element.getText().equals(nameCat2Level)) {
+                Actions build = new Actions(driver);
+                build.moveToElement(element, 23, 23).click().build().perform();
+                return;
+            }
+        }
+    }
+
+    public void openDropCategory3Level(String nameCat3Level) {
+        for (WebElement element : listCategory3Level){
+            if(element.getText().equals(nameCat3Level)) {
+                Actions build = new Actions(driver);
+                build.moveToElement(element, 23, 23).click().build().perform();
+                return;
+            }
+        }
+    }
+
+    public void chooseSubCategory(String nameSubCategory) {
+        for (WebElement element : listCategory4Level){
+            if(element.getText().equals(nameSubCategory)) {
+                element.click();
+                return;
+            }
+        }
+        listCategory4Level.get(listCategory4Level.size() - 1).click();
+    }
+
+    public void chooseCategory(String nameCat2Level, String nameCat3Level, String nameSubCategory) {
+        categoriesSelect.click();
+        openDropCategory2Level(nameCat2Level);
+        openDropCategory3Level(nameCat3Level);
+        chooseSubCategory(nameSubCategory);
+    }
+
+    public void chooseCountryOfManufac(String countryName) {
+        for (WebElement element : listCounryOfManufacture){
+            if(element.getText().equals(countryName)) {
+                element.click();
+                return;
+            }
+        }
+        listCounryOfManufacture.get(listCounryOfManufacture.size() - 1).click();
+    }
+
+    public void chooseProductStyle(String styleName) {
+        for (WebElement element : listProductStyle){
+            if(element.getText().equals(styleName)) {
+                element.click();
+                return;
+            }
+        }
+        listProductStyle.get(listProductStyle.size() - 1).click();
+    }
+
+    public void chooseProductModel(String modelName) {
+        for (WebElement element : listProductModel){
+            if(element.getText().equals(modelName)) {
+                element.click();
+                return;
+            }
+        }
+        listProductModel.get(listProductModel.size() - 1).click();
+    }
+
+    public void fillDimensionField() {
+        type(dimensionsField, "14x9x6");
+    }
+
+    public void fillProductContent() {
+        productContent.click();
+        driver.switchTo().frame(driver.findElement(By.id("product_form_description_ifr"))).findElement(By.id("tinymce"))
+                .sendKeys(Keys.chord(Keys.CONTROL, "b") + "Something Title" + Keys.ENTER +
+                        "Professional level athletic performance led to the creation of the Power Shift ™ by 2UNDR™. " +
+                        "The thermal reduction Coldskin™ fabric by Garmatex™ is strategically sewn just below the 40 mm waistband - 2UNDR's thickest yet. " +
+                        "This extended Swass Patch ventilates and cools your lower back during intense activity.");
+        driver.switchTo().defaultContent();;
+        driver.findElement(By.id("product_form_short_description_bullist")).click();
+        driver.switchTo().frame(driver.findElement(By.id("product_form_short_description_ifr"))).findElement(By.id("tinymce"))
+                .sendKeys("Designed with athletes in mind" + Keys.ENTER + "Introducing a Breathable Athletic Mesh Back Panel" + Keys.ENTER +
+                "Compression-like feel" + Keys.ENTER + "Temperature control" + Keys.ENTER + "Worn by some of sports' biggest names");
     }
 
     public void fillProductAttribute() {
