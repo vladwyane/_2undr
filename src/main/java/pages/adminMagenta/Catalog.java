@@ -1,9 +1,6 @@
 package pages.adminMagenta;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
@@ -90,6 +87,12 @@ public class Catalog extends BasePage {
 
     @FindBy(xpath = "//div[@data-index='content']")
     private WebElement productContent;
+
+    @FindBy(xpath = "//div[@data-index='gallery']")
+    private WebElement productImage;
+
+    @FindBy(id = "fileupload")
+    private WebElement uploadFileBut;
 
     public void clickCatalogNavItem() {
         invisibilityPreLoader();
@@ -202,16 +205,26 @@ public class Catalog extends BasePage {
 
     public void fillProductContent() {
         productContent.click();
+        invisibilityPreLoader();
         driver.switchTo().frame(driver.findElement(By.id("product_form_description_ifr"))).findElement(By.id("tinymce"))
-                .sendKeys(Keys.chord(Keys.CONTROL, "b") + "Something Title" + Keys.ENTER +
+                .sendKeys(Keys.chord(Keys.CONTROL, "b") + "Something Title" + Keys.ENTER  +
                         "Professional level athletic performance led to the creation of the Power Shift ™ by 2UNDR™. " +
                         "The thermal reduction Coldskin™ fabric by Garmatex™ is strategically sewn just below the 40 mm waistband - 2UNDR's thickest yet. " +
                         "This extended Swass Patch ventilates and cools your lower back during intense activity.");
-        driver.switchTo().defaultContent();;
+        driver.switchTo().defaultContent();
         driver.findElement(By.id("product_form_short_description_bullist")).click();
         driver.switchTo().frame(driver.findElement(By.id("product_form_short_description_ifr"))).findElement(By.id("tinymce"))
                 .sendKeys("Designed with athletes in mind" + Keys.ENTER + "Introducing a Breathable Athletic Mesh Back Panel" + Keys.ENTER +
                 "Compression-like feel" + Keys.ENTER + "Temperature control" + Keys.ENTER + "Worn by some of sports' biggest names");
+        driver.switchTo().defaultContent();
+    }
+
+    public void uploadProductImage() {
+        productImage.click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].setAttribute('style', arguments[1])", uploadFileBut, "0");
+        js.executeScript("arguments[0].setAttribute('class', arguments[1])", uploadFileBut, "a");
+        uploadFileBut.sendKeys("C:\\Users\\Vlad\\GitHub\\_2undr\\src\\main\\resources\\2u05ll-036_1_1.jpg");
     }
 
     public void fillProductAttribute() {
