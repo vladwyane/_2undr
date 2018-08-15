@@ -117,6 +117,33 @@ public class Catalog extends BasePage {
     @FindBys( {@FindBy(css = ".attribute-options li")} )
     private List<WebElement> listAttributeOptions;
 
+    @FindBy(xpath = "//label[@for='apply-single-set-radio']")
+    private WebElement applySingleImageRadioBut;
+
+    @FindBy(css = "input.admin__control-file")
+    private WebElement uploadApplySingleImage;
+
+    @FindBy(xpath = "//label[@for='apply-unique-inventory-radio']")
+    private WebElement applySinglePriceRadioBut;
+
+    @FindBy(id = "apply-single-price-input")
+    private WebElement applySinglePriceField;
+
+    @FindBy(xpath = "//label[@for='apply-single-price-radio']")
+    private WebElement applySingleQuantityRadioBut;
+
+    @FindBy(id = "apply-single-inventory-input")
+    private WebElement applySingleQuantityField;
+
+    @FindBy(xpath = "//div[@data-index='underwear']")
+    private WebElement underwearSection;
+
+    @FindBy(name = "product[color]")
+    private WebElement underwearColorSelect;
+
+    @FindBys( {@FindBy(xpath = "//*[@name='product[color]']/option")} )
+    private List<WebElement> listUnderwearColors;
+
     public void clickCheckboxAttribute() {
        for(WebElement element : listCheckboxAttribute) {
            element.click();
@@ -262,26 +289,60 @@ public class Catalog extends BasePage {
     public void uploadProductImage() {
         productImage.click();
         invisibilityPreLoader();
-        uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\2u04bb-027-1.png");
+        uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\2u05ll-036_1_1.jpg");
     }
 
     public void createProductConfiguration() {
         createConfigBut.click();
+        createProdConfigStep1("size");
+        createProdConfigStep2(new String[] {"M", "4XL", "S"});
+        createProdConfigStep3("2u05ll-036_1_1.jpg", "234", "234");
+        createProdConfigStep4();
+    }
+
+    public void createProdConfigStep1(String attributeCode) {
         waitModalSlideVisible();
-        waitAdminDefaulLoaderModalSlideInvisible();
-        waitButtonVisible();
-
-
-
+        invisibilityPreLoader();
         filterBut.click();
-        type(attributeCodeField, "size");
+        invisibilityPreLoader();
+        type(attributeCodeField, attributeCode);
         applyFilterBut.click();
+        invisibilityPreLoader();
         clickCheckboxAttribute();
         nextStepBut.click();
+    }
+
+    public void createProdConfigStep2(String[] size) {
         waitAdminCustomLoaderInvisible();
-        chooseAttributeValue(new String[] {"M", "4XL", "S"});
+        chooseAttributeValue(size);
+        nextStepBut.click();
+    }
 
+    public void createProdConfigStep3(String imageName, String price, String quantity) {
+        applySingleImageRadioBut.click();
+        uploadApplySingleImage.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\" + imageName);
+        applySinglePriceRadioBut.click();
+        type(applySinglePriceField, price);
+        applySingleQuantityRadioBut.click();
+        type(applySingleQuantityField, quantity);
+        nextStepBut.click();
+    }
 
+    public void createProdConfigStep4() {
+        invisibilityPreLoader();
+        nextStepBut.click();
+    }
+
+    public void chooseUndewearColor(String nameColor) {
+        underwearSection.click();
+        underwearColorSelect.click();
+        for (WebElement element : listUnderwearColors){
+            if(element.getText().equals(nameColor)) {
+                element.click();
+                return;
+            }
+        }
+        listUnderwearColors.get(listUnderwearColors.size() - 1).click();
     }
 
     public void fillProductAttribute() {
@@ -289,15 +350,14 @@ public class Catalog extends BasePage {
         type(productSKU, "yyy");
         type(productPrice, "345");
     }
-
     public void waitModalSlideVisible() {
         WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".modal-slide.product_form_product_form_configurableModal._show")));
     }
 
     public void waitButtonVisible() {
-        WebDriverWait wait = new WebDriverWait(driver, 60);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-action='grid-filter-expand']")));
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("table.data-grid.data-grid-draggable")));
     }
 
 
