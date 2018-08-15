@@ -4,6 +4,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
 import java.util.List;
@@ -94,6 +96,44 @@ public class Catalog extends BasePage {
     @FindBy(id = "fileupload")
     private WebElement uploadFileBut;
 
+    @FindBy(xpath = "//button[@data-index='create_configurable_products_button']")
+    private WebElement createConfigBut;
+
+    @FindBy(xpath = "//button[@data-action='grid-filter-expand']")
+    private WebElement filterBut;
+
+    @FindBy(name = "attribute_code")
+    private WebElement attributeCodeField;
+
+    @FindBy(xpath = "//button[@data-action='grid-filter-apply']")
+    private WebElement applyFilterBut;
+
+    @FindBys( {@FindBy(css = ".data-grid-checkbox-cell-inner")} )
+    private List<WebElement> listCheckboxAttribute;
+
+    @FindBy(css = ".action-next-step")
+    private WebElement nextStepBut;
+
+    @FindBys( {@FindBy(css = ".attribute-options li")} )
+    private List<WebElement> listAttributeOptions;
+
+    public void clickCheckboxAttribute() {
+       for(WebElement element : listCheckboxAttribute) {
+           element.click();
+           return;
+       }
+    }
+
+    public void chooseAttributeValue (String[] arrayWithAttributeValue) {
+        for (int i = 0; i < listAttributeOptions.size(); i++) {
+            for (int j = 0; j < arrayWithAttributeValue.length; j++) {
+                String webAttValue = listAttributeOptions.get(i).getAttribute("data-attribute-option-title");
+                if(webAttValue.equals(arrayWithAttributeValue[j]))
+                    listAttributeOptions.get(i).click();
+            }
+        }
+    }
+
     public void clickCatalogNavItem() {
         invisibilityPreLoader();
         catalogNavItem.click();
@@ -110,7 +150,7 @@ public class Catalog extends BasePage {
     }
 
     public void chooseAttributSet(String name) {
-        waitLoadingMaskInvisible();
+        waitAdminDefaultLoaderInvisible();
         attributSetSelect.click();
         for (WebElement element : listAttributSet){
             if(element.getText().equals(name)) {
@@ -121,7 +161,7 @@ public class Catalog extends BasePage {
     }
 
     public void chooseVisibilityValue(String name) {
-        waitLoaderkInvisible();
+        waitAdminCustomLoaderInvisible();
         visibilitySelect.click();
         for (WebElement element : listVisibility){
             if(element.getText().equals(name)) {
@@ -221,10 +261,27 @@ public class Catalog extends BasePage {
 
     public void uploadProductImage() {
         productImage.click();
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].setAttribute('style', arguments[1])", uploadFileBut, "0");
-        js.executeScript("arguments[0].setAttribute('class', arguments[1])", uploadFileBut, "a");
-        uploadFileBut.sendKeys("C:\\Users\\Vlad\\GitHub\\_2undr\\src\\main\\resources\\2u05ll-036_1_1.jpg");
+        invisibilityPreLoader();
+        uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\2u04bb-027-1.png");
+    }
+
+    public void createProductConfiguration() {
+        createConfigBut.click();
+        waitModalSlideVisible();
+        waitAdminDefaulLoaderModalSlideInvisible();
+        waitButtonVisible();
+
+
+
+        filterBut.click();
+        type(attributeCodeField, "size");
+        applyFilterBut.click();
+        clickCheckboxAttribute();
+        nextStepBut.click();
+        waitAdminCustomLoaderInvisible();
+        chooseAttributeValue(new String[] {"M", "4XL", "S"});
+
+
     }
 
     public void fillProductAttribute() {
@@ -232,4 +289,16 @@ public class Catalog extends BasePage {
         type(productSKU, "yyy");
         type(productPrice, "345");
     }
+
+    public void waitModalSlideVisible() {
+        WebDriverWait wait = new WebDriverWait(driver, 60);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".modal-slide.product_form_product_form_configurableModal._show")));
+    }
+
+    public void waitButtonVisible() {
+        WebDriverWait wait = new WebDriverWait(driver, 60);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-action='grid-filter-expand']")));
+    }
+
+
 }

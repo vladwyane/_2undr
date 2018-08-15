@@ -34,6 +34,7 @@ public class AdminMagentaTest extends TestBase{
         catalog.chooseProductModel("Day Shift Boxer Brief");
       //  catalog.fillProductContent();
         catalog.uploadProductImage();
+        catalog.createProductConfiguration();
         wait.threadsSleepWait();
     }
 

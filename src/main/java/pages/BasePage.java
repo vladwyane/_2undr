@@ -73,14 +73,19 @@ public abstract class BasePage {
         return false;
     }
 
-    public void waitLoadingMaskInvisible() {
+    public void waitAdminDefaultLoaderInvisible() {
         WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".admin__form-loading-mask")));
     }
 
-    public void waitLoaderkInvisible() {
+    public void waitAdminCustomLoaderInvisible() {
         WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".loading-mask")));
+    }
+
+    public void waitAdminDefaulLoaderModalSlideInvisible() {
+        WebDriverWait wait = new WebDriverWait(driver, 60);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("(//*[@class='admin__data-grid-loading-mask'])[2]")));
     }
 
 }
