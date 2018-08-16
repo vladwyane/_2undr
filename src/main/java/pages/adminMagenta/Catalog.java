@@ -123,13 +123,13 @@ public class Catalog extends BasePage {
     @FindBy(css = "input.admin__control-file")
     private WebElement uploadApplySingleImage;
 
-    @FindBy(xpath = "//label[@for='apply-unique-inventory-radio']")
+    @FindBy(xpath = "//label[@for='apply-single-price-radio']")
     private WebElement applySinglePriceRadioBut;
 
     @FindBy(id = "apply-single-price-input")
     private WebElement applySinglePriceField;
 
-    @FindBy(xpath = "//label[@for='apply-single-price-radio']")
+    @FindBy(xpath = "//label[@for='apply-single-inventory-radio']")
     private WebElement applySingleQuantityRadioBut;
 
     @FindBy(id = "apply-single-inventory-input")
@@ -143,6 +143,11 @@ public class Catalog extends BasePage {
 
     @FindBys( {@FindBy(xpath = "//*[@name='product[color]']/option")} )
     private List<WebElement> listUnderwearColors;
+
+    @FindBys( {@FindBy(xpath = "//td[@data-index='price_weight']//input")} )
+    private List<WebElement> listCurrentVariationsWeight;
+
+
 
     public void clickCheckboxAttribute() {
        for(WebElement element : listCheckboxAttribute) {
@@ -161,19 +166,14 @@ public class Catalog extends BasePage {
         }
     }
 
-    public void clickCatalogNavItem() {
-        invisibilityPreLoader();
-        catalogNavItem.click();
-    }
-
-    public void clickProductSubNavItem() {
-        invisibilityPreLoader();
-        productSubNavItem.click();
-    }
-
     public void clickAddNewProductBut() {
         invisibilityPreLoader();
+        catalogNavItem.click();
+        invisibilityPreLoader();
+        productSubNavItem.click();
+        invisibilityPreLoader();
         addNewProductBut.click();
+        driver.navigate().refresh();
     }
 
     public void chooseAttributSet(String name) {
@@ -289,15 +289,16 @@ public class Catalog extends BasePage {
     public void uploadProductImage() {
         productImage.click();
         invisibilityPreLoader();
-        uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\2u05ll-036_1_1.jpg");
+        uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\2u04bb-027-1.png");
     }
 
     public void createProductConfiguration() {
         createConfigBut.click();
         createProdConfigStep1("size");
         createProdConfigStep2(new String[] {"M", "4XL", "S"});
-        createProdConfigStep3("2u05ll-036_1_1.jpg", "234", "234");
+        createProdConfigStep3("2u04bb-027-1.png", "234", "234");
         createProdConfigStep4();
+        addingWeightForVariation("1");
     }
 
     public void createProdConfigStep1(String attributeCode) {
@@ -320,8 +321,10 @@ public class Catalog extends BasePage {
 
     public void createProdConfigStep3(String imageName, String price, String quantity) {
         applySingleImageRadioBut.click();
+        invisibilityPreLoader();
         uploadApplySingleImage.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\" + imageName);
         applySinglePriceRadioBut.click();
+        invisibilityPreLoader();
         type(applySinglePriceField, price);
         applySingleQuantityRadioBut.click();
         type(applySingleQuantityField, quantity);
@@ -350,15 +353,18 @@ public class Catalog extends BasePage {
         type(productSKU, "yyy");
         type(productPrice, "345");
     }
+
+    public void addingWeightForVariation(String valueWeight) {
+        for (WebElement element : listCurrentVariationsWeight){
+            type(element, valueWeight);
+        }
+    }
+
     public void waitModalSlideVisible() {
         WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".modal-slide.product_form_product_form_configurableModal._show")));
     }
 
-    public void waitButtonVisible() {
-        WebDriverWait wait = new WebDriverWait(driver, 20);
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("table.data-grid.data-grid-draggable")));
-    }
 
 
 }

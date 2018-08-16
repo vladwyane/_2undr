@@ -21,8 +21,6 @@ public class AdminMagentaTest extends TestBase{
     @Test(description = "Test of counting amount of all goods")
     public void testAdminSignIn() throws Exception {
         dashbord.signIn(Users.ADMIN);
-        catalog.clickCatalogNavItem();
-        catalog.clickProductSubNavItem();
         catalog.clickAddNewProductBut();
         catalog.chooseAttributSet("Underwear");
         catalog.fillProductAttribute();
@@ -32,7 +30,7 @@ public class AdminMagentaTest extends TestBase{
         catalog.chooseProductStyle("Boxer Brief");
         catalog.fillDimensionField();
         catalog.chooseProductModel("Day Shift Boxer Brief");
-      //  catalog.fillProductContent();
+        catalog.fillProductContent();
         catalog.uploadProductImage();
         catalog.createProductConfiguration();
         wait.threadsSleepWait();
