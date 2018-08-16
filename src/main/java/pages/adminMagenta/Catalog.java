@@ -1,5 +1,6 @@
 package pages.adminMagenta;
 
+import data.Products;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -147,6 +148,14 @@ public class Catalog extends BasePage {
     @FindBys( {@FindBy(xpath = "//td[@data-index='price_weight']//input")} )
     private List<WebElement> listCurrentVariationsWeight;
 
+    @FindBy(id = "save-button")
+    private WebElement saveProductBut;
+
+    public Catalog saveProduct() {
+        saveProductBut.click();
+        invisibilityPreLoader();
+        return new Catalog(driver);
+    }
 
 
     public void clickCheckboxAttribute() {
@@ -166,7 +175,7 @@ public class Catalog extends BasePage {
         }
     }
 
-    public void clickAddNewProductBut() {
+    public void openNewProductForm() {
         invisibilityPreLoader();
         catalogNavItem.click();
         invisibilityPreLoader();
@@ -176,22 +185,22 @@ public class Catalog extends BasePage {
         driver.navigate().refresh();
     }
 
-    public void chooseAttributSet(String name) {
+    public void chooseAttributSet(String attributeSet) {
         waitAdminDefaultLoaderInvisible();
         attributSetSelect.click();
         for (WebElement element : listAttributSet){
-            if(element.getText().equals(name)) {
+            if(element.getText().equals(attributeSet)) {
                 element.click();
                 return;
             }
         }
     }
 
-    public void chooseVisibilityValue(String name) {
+    public void chooseVisibilityValue(String visibilityValue) {
         waitAdminCustomLoaderInvisible();
         visibilitySelect.click();
         for (WebElement element : listVisibility){
-            if(element.getText().equals(name)) {
+            if(element.getText().equals(visibilityValue)) {
                 element.click();
                 return;
             }
@@ -266,10 +275,6 @@ public class Catalog extends BasePage {
         listProductModel.get(listProductModel.size() - 1).click();
     }
 
-    public void fillDimensionField() {
-        type(dimensionsField, "14x9x6");
-    }
-
     public void fillProductContent() {
         productContent.click();
         invisibilityPreLoader();
@@ -286,19 +291,20 @@ public class Catalog extends BasePage {
         driver.switchTo().defaultContent();
     }
 
-    public void uploadProductImage() {
+    public void uploadProductImage(Products products) {
         productImage.click();
         invisibilityPreLoader();
-        uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\2u04bb-027-1.png");
+        uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\" + products.getImageName());
+        invisibilityPreLoader();
     }
 
-    public void createProductConfiguration() {
+    public void createProductConfiguration(Products products) {
         createConfigBut.click();
         createProdConfigStep1("size");
-        createProdConfigStep2(new String[] {"M", "4XL", "S"});
-        createProdConfigStep3("2u04bb-027-1.png", "234", "234");
+        createProdConfigStep2(new String[] {"M", "S"});
+        createProdConfigStep3(products.getImageName(), products.getPrice(), products.getQuantity());
         createProdConfigStep4();
-        addingWeightForVariation("1");
+        addingWeightForVariation(products.getWeight());
     }
 
     public void createProdConfigStep1(String attributeCode) {
@@ -336,11 +342,11 @@ public class Catalog extends BasePage {
         nextStepBut.click();
     }
 
-    public void chooseUndewearColor(String nameColor) {
+    public void chooseUndewearColor(Products products) {
         underwearSection.click();
         underwearColorSelect.click();
         for (WebElement element : listUnderwearColors){
-            if(element.getText().equals(nameColor)) {
+            if(element.getText().equals(products.getColor())) {
                 element.click();
                 return;
             }
@@ -348,10 +354,17 @@ public class Catalog extends BasePage {
         listUnderwearColors.get(listUnderwearColors.size() - 1).click();
     }
 
-    public void fillProductAttribute() {
-        type(productName, "test");
-        type(productSKU, "yyy");
-        type(productPrice, "345");
+    public void fillingProductInfo(Products products) {
+        chooseAttributSet(products.getAttributeSet());
+        type(productName, products.getName());
+        type(productSKU, products.getSku());
+        type(productPrice, products.getPrice());
+        chooseVisibilityValue(products.getVisibility());
+        chooseCategory("Underwear", "Collections", products.getCategory());
+        chooseCountryOfManufac(products.getCountry());
+        chooseProductStyle(products.getStyle());
+        type(dimensionsField, products.getDimension());
+        chooseProductModel(products.getModel());
     }
 
     public void addingWeightForVariation(String valueWeight) {

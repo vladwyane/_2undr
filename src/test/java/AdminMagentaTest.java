@@ -1,3 +1,4 @@
+import data.Products;
 import data.Users;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.BeforeMethod;
@@ -19,20 +20,15 @@ public class AdminMagentaTest extends TestBase{
     }
 
     @Test(description = "Test of counting amount of all goods")
-    public void testAdminSignIn() throws Exception {
+    public void testCreateProduct() throws Exception {
         dashbord.signIn(Users.ADMIN);
-        catalog.clickAddNewProductBut();
-        catalog.chooseAttributSet("Underwear");
-        catalog.fillProductAttribute();
-        catalog.chooseVisibilityValue("Catalog, Search");
-        catalog.chooseCategory("Underwear", "Collections", "Day Shift");
-        catalog.chooseCountryOfManufac("China");
-        catalog.chooseProductStyle("Boxer Brief");
-        catalog.fillDimensionField();
-        catalog.chooseProductModel("Day Shift Boxer Brief");
+        catalog.openNewProductForm();
+        catalog.fillingProductInfo(Products.SWING_SHIFT_BURGUNDY);
         catalog.fillProductContent();
-        catalog.uploadProductImage();
-        catalog.createProductConfiguration();
+        catalog.createProductConfiguration(Products.SWING_SHIFT_BURGUNDY);
+        catalog.uploadProductImage(Products.SWING_SHIFT_BURGUNDY);
+        catalog.chooseUndewearColor(Products.SWING_SHIFT_BURGUNDY);
+        catalog.saveProduct();
         wait.threadsSleepWait();
     }
 
