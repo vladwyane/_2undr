@@ -68,14 +68,14 @@ public class ShippingMethod extends BasePage {
         stateSelect.click();
         try {
             for(WebElement element : listState) {
-                if(element.getText().equals(stateName) || element.equals(listState.get(listState.size() - 1)))
+                if(element.getText().equals(stateName.toUpperCase()) || element.equals(listState.get(listState.size() - 1)))
                     element.click();
             }
         }
         catch(org.openqa.selenium.StaleElementReferenceException ex)
         {
             for(WebElement element : listState) {
-                if(element.getText().equals(stateName) || element.equals(listState.get(listState.size() - 1)))
+                if(element.getText().equals(stateName.toUpperCase()) || element.equals(listState.get(listState.size() - 1)))
                     element.click();
             }
         }

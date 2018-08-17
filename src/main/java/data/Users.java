@@ -2,11 +2,11 @@ package data;
 
 public enum Users {
 
-    DWYANE("Dwyane", "Wade", "Dwyane@i.ua", "JR6GMs4ywG", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "ALABAMA", "33101", "123-456-7890", "United States"),
-    LEBRON("Lebron", "James", "vladwyane@gmail.com", "JR6GMs4ywG", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "FLORIDA", "33101", "(123) 456-7890", "United States"),
-    VLADYSLAV("Vladyslav", "Chesalov", "vladyslav.chesalov@bigdropinc.com", "JR6GMs4ywG", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "FLORIDA", "33101", "(123) 456-7890", "United States"),
-    INVALID("Invalid", "Incorrect", "vladwyane@gmail.com", "Invalid19", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "BORN", "33101", "123-456-7890", "Canada"),
-    ADMIN("TestAdmin", "Incorrect", "testing", "dwzXBQ6K5iGx", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "BORN", "33101", "123-456-7890", "Canada");
+    DWYANE("Dwyane", "Wade", "Dwyane@i.ua", "JR6GMs4ywG", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "Alabama", "33101", "123-456-7890", "United States"),
+    LEBRON("Lebron", "James", "vladwyane@gmail.com", "JR6GMs4ywG", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "Florida", "33101", "(123) 456-7890", "United States"),
+    VLADYSLAV("Vladyslav", "Chesalov", "vladyslav.chesalov@bigdropinc.com", "JR6GMs4ywG", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "Florida", "33101", "(123) 456-7890", "United States"),
+    INVALID("Invalid", "Incorrect", "vladwyane@gmail.com", "Invalid19", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "Born", "33101", "123-456-7890", "Canada"),
+    ADMIN("TestAdmin", "Incorrect", "testing", "dwzXBQ6K5iGx", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "Born", "33101", "123-456-7890", "Canada");
 
     public String getFirstUserName() {
         return userFirstName;

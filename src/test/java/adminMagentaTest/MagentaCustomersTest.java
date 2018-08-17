@@ -30,8 +30,6 @@ public class MagentaCustomersTest extends TestBase {
        customers.openNewCustomerForm();
        customers.fillAccountInfo(Users.VLADYSLAV);
        customers.fillAddressInfo(Users.VLADYSLAV);
-       wait.threadsSleepWait();
-
-
+       customers.saveNewCustomer();
     }
 }

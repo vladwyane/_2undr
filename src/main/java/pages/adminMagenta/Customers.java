@@ -83,6 +83,13 @@ public class Customers extends BasePage{
     @FindBy(name = "address[new_0][telephone]")
     private WebElement addressPhoneField;
 
+    @FindBy(id = "save")
+    private WebElement saveCustomBut;
+
+    @FindBy(name = "customer[website_id]")
+    private WebElement websiteSelect;
+
+
     public void openNewCustomerForm() {
         invisibilityPreLoader();
         customerNavItem.click();
@@ -93,9 +100,10 @@ public class Customers extends BasePage{
     }
 
     public void fillAccountInfo(Users users) {
-        type(firstNameField, users.getFirstUserName());
-        type(lastNameField, users.getLastUserName());
         type(emailField, users.getEmail());
+        type(lastNameField, users.getLastUserName());
+        type(firstNameField, users.getFirstUserName());
+        websiteSelect.click();
     }
 
     public void fillAddressInfo(Users users) {
@@ -148,7 +156,11 @@ public class Customers extends BasePage{
                 listState.get(listState.size() - 1).click();
         }
         else type(regionField, region);
-
     }
 
+    public Dashbord saveNewCustomer() {
+        saveCustomBut.click();
+        invisibilityPreLoader();
+        return new Dashbord(driver);
+    }
 }
