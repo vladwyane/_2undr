@@ -178,6 +178,7 @@ public class Collections extends BasePage {
                 break;
             }
         }
+        invisibilityPreLoader();
     }
 
     public int accountProduct() throws InterruptedException {

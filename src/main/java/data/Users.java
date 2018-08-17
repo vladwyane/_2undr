@@ -2,10 +2,11 @@ package data;
 
 public enum Users {
 
-    DWYANE("Dwyane", "Wade", "Dwyane@i.ua", "JR6GMs4ywG", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "ALABAMA", "33101", "123-456-7890"),
-    LEBRON("Lebron", "James", "vladwyane@gmail.com", "JR6GMs4ywG", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "FLORIDA", "33101", "(123) 456-7890"),
-    INVALID("Invalid", "Incorrect", "vladwyane@gmail.com", "Invalid19", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "BORN", "33101", "123-456-7890"),
-    ADMIN("TestAdmin", "Incorrect", "testing", "dwzXBQ6K5iGx", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "BORN", "33101", "123-456-7890");
+    DWYANE("Dwyane", "Wade", "Dwyane@i.ua", "JR6GMs4ywG", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "ALABAMA", "33101", "123-456-7890", "United States"),
+    LEBRON("Lebron", "James", "vladwyane@gmail.com", "JR6GMs4ywG", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "FLORIDA", "33101", "(123) 456-7890", "United States"),
+    VLADYSLAV("Vladyslav", "Chesalov", "vladyslav.chesalov@bigdropinc.com", "JR6GMs4ywG", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "FLORIDA", "33101", "(123) 456-7890", "United States"),
+    INVALID("Invalid", "Incorrect", "vladwyane@gmail.com", "Invalid19", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "BORN", "33101", "123-456-7890", "Canada"),
+    ADMIN("TestAdmin", "Incorrect", "testing", "dwzXBQ6K5iGx", "3275 NW 24th Street Rd", "Soft Industry", "Miami", "BORN", "33101", "123-456-7890", "Canada");
 
     public String getFirstUserName() {
         return userFirstName;
@@ -47,6 +48,10 @@ public enum Users {
         return telephone;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
     private String userFirstName;
     private String userLastName;
     private String email;
@@ -57,9 +62,10 @@ public enum Users {
     private String state;
     private String zipCode;
     private String telephone;
+    private String country;
 
     Users(String userFirstName, String userLastName, String email, String password, String stAddress,
-          String company, String city, String state, String zipCode, String telephone) {
+          String company, String city, String state, String zipCode, String telephone, String country) {
         this.userFirstName = userFirstName;
         this.userLastName = userLastName;
         this.email = email;
@@ -70,5 +76,6 @@ public enum Users {
         this.state = state;
         this.zipCode = zipCode;
         this.telephone = telephone;
+        this.country = country;
     }
 }

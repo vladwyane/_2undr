@@ -1,3 +1,4 @@
+import data.Category;
 import data.CreditCarts;
 import data.Users;
 import org.openqa.selenium.support.PageFactory;
@@ -31,7 +32,8 @@ public class MakeOrderTest extends TestBase{
     public void testMakeOrderUsingCreditCart() throws Exception {
         accountPopup.signIn(Users.LEBRON);
         collections.open();
-        collections.addProductInStockToShopCart(91.0, "3");
+      //  collections.chooseCollections(Category.GEARSHIFT);
+        collections.addProductInStockToShopCart(37.0, "5");
         shoppingCart.open();
         shoppingCart.clickCheckoutBut();
         shippingMethod.fillShippingAddressForUSA(Users.LEBRON);
@@ -47,7 +49,8 @@ public class MakeOrderTest extends TestBase{
     public void testMakeOrderUsingCheck() throws Exception {
         accountPopup.signIn(Users.LEBRON);
         collections.open();
-        String titleAddedToShoppingCart = collections.addProductInStockToShopCart(34.0, "1");
+        collections.chooseCollections(Category.GEARSHIFT);
+        String titleAddedToShoppingCart = collections.addProductInStockToShopCart(37.0, "5");
         shoppingCart.open();
         shoppingCart.clickCheckoutBut();
         shippingMethod.fillShippingAddressForUSA(Users.LEBRON);

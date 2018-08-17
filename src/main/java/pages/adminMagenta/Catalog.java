@@ -151,10 +151,26 @@ public class Catalog extends BasePage {
     @FindBy(id = "save-button")
     private WebElement saveProductBut;
 
-    public Catalog saveProduct() {
+    @FindBy(xpath = "//div[@class='fieldset-wrapper admin__collapsible-block-wrapper' and @data-index='related']")
+    private WebElement relatedProductsection;
+
+    @FindBy(xpath = "//button[@data-index='button_related']")
+    private WebElement addRelatedProdBut;
+
+    @FindBy(xpath = "//select[@name='type_id']")
+    private WebElement attributeTypeSelect;
+
+    @FindBys( {@FindBy(xpath = "//select[@name='type_id']/option")} )
+    private List<WebElement> listAttributeType;
+
+    @FindBy(xpath = "(//span[contains(text(), 'Add Selected Products')])[1]")
+    private WebElement addSelectedProdBut;
+
+
+    public Dashbord saveProduct() {
         saveProductBut.click();
         invisibilityPreLoader();
-        return new Catalog(driver);
+        return new Dashbord(driver);
     }
 
 
@@ -291,18 +307,24 @@ public class Catalog extends BasePage {
         driver.switchTo().defaultContent();
     }
 
-    public void uploadProductImage(Products products) {
+    public void uploadProductImage(Products products, int amountImage) {
         productImage.click();
-        invisibilityPreLoader();
-        uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\" + products.getImageName());
+        for (int i = 0; i < amountImage; i++) {
+            invisibilityPreLoader();
+            if(i == 0)
+                uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\" + products.getFirstImage());
+            else if(i == 1)
+                uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\" + products.getSecondImage());
+            else break;
+        }
         invisibilityPreLoader();
     }
 
     public void createProductConfiguration(Products products) {
         createConfigBut.click();
         createProdConfigStep1("size");
-        createProdConfigStep2(new String[] {"M", "S"});
-        createProdConfigStep3(products.getImageName(), products.getPrice(), products.getQuantity());
+        createProdConfigStep2(new String[] {"M", "S", "L", "2XL"});
+        createProdConfigStep3(products.getFirstImage(), products.getPrice(), products.getQuantity());
         createProdConfigStep4();
         addingWeightForVariation(products.getWeight());
     }
@@ -367,9 +389,39 @@ public class Catalog extends BasePage {
         chooseProductModel(products.getModel());
     }
 
+    public void chooseAttributeType(String typeAttribute) {
+        for (WebElement element : listAttributeType){
+            if(element.getText().equals(typeAttribute)) {
+                element.click();
+                return;
+            }
+        }
+        listUnderwearColors.get(listUnderwearColors.size() - 1).click();
+    }
+
+    public void chooseRelatedProducts(int amount) {
+        relatedProductsection.click();
+        addRelatedProdBut.click();
+        waitRelatedModalSlideVisible();
+        waitAdminDefaulLoaderModalSlideInvisible();
+        filterBut.click();
+        invisibilityPreLoader();
+        chooseAttributeType("Configurable Product");
+        applyFilterBut.click();
+        invisibilityPreLoader();
+        clickCheckboxProduct(amount);
+        addSelectedProdBut.click();
+    }
+
     public void addingWeightForVariation(String valueWeight) {
         for (WebElement element : listCurrentVariationsWeight){
             type(element, valueWeight);
+        }
+    }
+
+    public void clickCheckboxProduct(int amount) {
+        for (int i = 0; i < listCheckboxAttribute.size() && i < amount; i++) {
+            listCheckboxAttribute.get(i).click();
         }
     }
 
@@ -378,6 +430,8 @@ public class Catalog extends BasePage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".modal-slide.product_form_product_form_configurableModal._show")));
     }
 
-
-
+    public void waitRelatedModalSlideVisible() {
+        WebDriverWait wait = new WebDriverWait(driver, 60);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".modal-slide.product_form_product_form_related_related_modal._show")));
+    }
 }

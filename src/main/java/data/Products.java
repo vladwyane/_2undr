@@ -2,15 +2,15 @@ package data;
 
 public enum Products {
 
-    SWING_SHIFT_BURGUNDY("Underwear", "Gear Shift 9\" Long Leg - Crimson", "2U05LL.029", "29", "Catalog, Search",
-            "Gear Shift", "China", "Long Leg", "14x9x6", "Gear Shift Long Leg", "2u05ll-036_1_1.jpg", "10", "1", "Crimson");
+    GEAR_SHIFT_NIGHT_COMO("Underwear", "Gear Shift 9\" Long Leg - BLACK | NIGHT CAMO", "2U03LL-NC.037", "37", "Catalog, Search",
+            "Gear Shift", "China", "Long Leg", "14x9x6", "Gear Shift Long Leg", "2U03LLNC.png", "2U03LLB.png", "5", "1", "NIGHT CAMO"),
+    GEAR_SHIFT_BLUE_RIBBON("Underwear", "Gear Shift 9\" Long Leg - Blue Ribbon", "2U03LL-BR.039", "39", "Catalog, Search",
+            "Gear Shift", "China", "Long Leg", "14x9x6", "Gear Shift Long Leg", "2U03LLBR.png", "2U03LLBR.png", "10", "1", "Blue Ribbon");
 
 
     public String getAttributeSet() {
         return attributeSet;
     }
-
-    private String attributeSet;
 
     public String getName() {
         return name;
@@ -23,6 +23,7 @@ public enum Products {
     public String getPrice() {
         return price;
     }
+
     public String getVisibility() {
         return visibility;
     }
@@ -39,7 +40,6 @@ public enum Products {
         return style;
     }
 
-
     public String getDimension() {
         return dimension;
     }
@@ -48,8 +48,12 @@ public enum Products {
         return model;
     }
 
-    public String getImageName() {
-        return imageName;
+    public String getFirstImage() {
+        return firstImage;
+    }
+
+    public String getSecondImage() {
+        return secondImage;
     }
 
     public String getQuantity() {
@@ -64,6 +68,7 @@ public enum Products {
         return color;
     }
 
+    private String attributeSet;
     private String name;
     private String sku;
     private String price;
@@ -73,13 +78,14 @@ public enum Products {
     private String style;
     private String dimension;
     private String model;
-    private String imageName;
+    private String firstImage;
+    private String secondImage;
     private String quantity;
     private String weight;
     private String color;
 
     Products(String attributeSet, String name, String sku, String price, String visibility, String category, String country,
-             String style, String dimension, String model, String imageName, String quantity, String weight, String color) {
+             String style, String dimension, String model, String firstImage, String secondImage, String quantity, String weight, String color) {
         this.attributeSet = attributeSet;
         this.name = name;
         this.sku = sku;
@@ -90,11 +96,10 @@ public enum Products {
         this.style = style;
         this.dimension = dimension;
         this.model = model;
-        this.imageName = imageName;
+        this.firstImage = firstImage;
+        this.secondImage = secondImage;
         this.quantity = quantity;
         this.weight = weight;
         this.color = color;
-
-
     }
 }

@@ -28,9 +28,12 @@ public class Dashbord extends BasePage{
     private WebElement signInBut;
 
     public Dashbord signIn(Users users) {
-        type(userNameField, users.getEmail());
-        type(passwordField, users.getPassword());
-        signInBut.click();
+        if(isElementPresent(userNameField) == true) {
+            type(userNameField, users.getEmail());
+            type(passwordField, users.getPassword());
+            signInBut.click();
+            return new Dashbord(driver);
+        }
         return new Dashbord(driver);
     }
 }
