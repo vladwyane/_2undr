@@ -46,6 +46,17 @@ public class MagentaCatalogTest extends TestBase{
         catalog.saveProduct();
     }
 
+    @Test(description = "Test of creating product from admin")
+    public void testCreateProductGearShiftBlue2() throws Exception {
+        catalog.openNewProductForm();
+        catalog.fillingProductInfo(Products.GEAR_SHIFT_NIGHT_COMO2);
+        catalog.fillProductContent();
+        catalog.createProductConfiguration(Products.GEAR_SHIFT_NIGHT_COMO2);
+        catalog.uploadProductImage(Products.GEAR_SHIFT_NIGHT_COMO2, 1);
+        catalog.chooseUndewearColor(Products.GEAR_SHIFT_NIGHT_COMO2);
+        catalog.saveProduct();
+    }
+
 
 
 }

@@ -4,6 +4,8 @@ public enum Products {
 
     GEAR_SHIFT_NIGHT_COMO("Underwear", "Gear Shift 9\" Long Leg - BLACK | NIGHT CAMO", "2U03LL-NC.037", "37", "Catalog, Search",
             "Gear Shift", "China", "Long Leg", "14x9x6", "Gear Shift Long Leg", "2U03LLNC.png", "2U03LLB.png", "5", "1", "NIGHT CAMO"),
+    GEAR_SHIFT_NIGHT_COMO2("Underwear", "Gear Shift 9\" Long Leg - BLACK | NIGHT CAMO", "2U03LL-NC.037", "37", "Catalog, Search",
+            "Gear Shift", "China", "Long Leg", "14x9x6", "Gear Shift Long Leg", "2u05ll-036_1_1.jpg", "2u05ll-036_1_1.jpg", "5", "1", "NIGHT CAMO"),
     GEAR_SHIFT_BLUE_RIBBON("Underwear", "Gear Shift 9\" Long Leg - Blue Ribbon", "2U03LL-BR.039", "39", "Catalog, Search",
             "Gear Shift", "China", "Long Leg", "14x9x6", "Gear Shift Long Leg", "2U03LLBR.png", "2U03LLBR.png", "10", "1", "Blue Ribbon");
 

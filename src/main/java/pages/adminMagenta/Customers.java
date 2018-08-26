@@ -103,7 +103,7 @@ public class Customers extends BasePage{
         type(emailField, users.getEmail());
         type(lastNameField, users.getLastUserName());
         type(firstNameField, users.getFirstUserName());
-        websiteSelect.click();
+       // websiteSelect.click();
     }
 
     public void fillAddressInfo(Users users) {
