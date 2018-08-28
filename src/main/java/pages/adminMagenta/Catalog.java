@@ -323,7 +323,7 @@ public class Catalog extends BasePage {
     public void createProductConfiguration(Products products) {
         createConfigBut.click();
         createProdConfigStep1("size");
-        createProdConfigStep2(new String[] {"M", "S", "L", "2XL"});
+        createProdConfigStep2(new String[] {"XS", "M", "S", "L", "XL", "2XL"});
         createProdConfigStep3(products.getFirstImage(), products.getPrice(), products.getQuantity());
         createProdConfigStep4();
         addingWeightForVariation(products.getWeight());

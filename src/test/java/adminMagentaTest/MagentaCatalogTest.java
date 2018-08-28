@@ -57,6 +57,30 @@ public class MagentaCatalogTest extends TestBase{
         catalog.saveProduct();
     }
 
+    @Test(description = "Test of creating product from admin", alwaysRun = true)
+    public void testCreateProductNightShiftNavy() throws Exception {
+        catalog.openNewProductForm();
+        catalog.fillingProductInfo(Products.NIGHT_SHIFT_NAVY);
+        catalog.chooseRelatedProducts(4);
+        catalog.fillProductContent();
+        catalog.createProductConfiguration(Products.NIGHT_SHIFT_NAVY);
+        catalog.uploadProductImage(Products.NIGHT_SHIFT_NAVY, 2);
+        catalog.chooseUndewearColor(Products.NIGHT_SHIFT_NAVY);
+        catalog.saveProduct();
+    }
+
+    @Test(description = "Test of creating product from admin", alwaysRun = true)
+    public void testCreateProductNightShiftCharcoal() throws Exception {
+        catalog.openNewProductForm();
+        catalog.fillingProductInfo(Products.NIGHT_SHIFT_CHARCOAL);
+        catalog.chooseRelatedProducts(7);
+        catalog.fillProductContent();
+        catalog.createProductConfiguration(Products.NIGHT_SHIFT_CHARCOAL);
+        catalog.uploadProductImage(Products.NIGHT_SHIFT_CHARCOAL, 2);
+        catalog.chooseUndewearColor(Products.NIGHT_SHIFT_CHARCOAL);
+        catalog.saveProduct();
+    }
+
 
 
 }

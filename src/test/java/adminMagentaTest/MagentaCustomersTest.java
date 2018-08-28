@@ -25,11 +25,12 @@ public class MagentaCustomersTest extends TestBase {
         dashbord.signIn(Users.ADMIN);
     }
 
-    @Test(description = "Test of creating product from admin")
+    @Test(description = "Test of creating product from admin", alwaysRun = true)
     public void testCreateNewCustomer() throws Exception {
        customers.openNewCustomerForm();
        customers.fillAccountInfo(Users.VLADYSLAV);
        customers.fillAddressInfo(Users.VLADYSLAV);
        customers.saveNewCustomer();
+       customers.checkSuccessSavedCustomer();
     }
 }

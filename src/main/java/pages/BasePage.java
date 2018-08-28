@@ -22,6 +22,9 @@ public abstract class BasePage {
         this.driver = driver;
     }
 
+    @FindBys( {@FindBy(css = "a")} )
+    protected List<WebElement> allLinkOnPage;
+
     @FindBy(css = "div.account")
     protected WebElement accountLogin;
 
@@ -60,17 +63,35 @@ public abstract class BasePage {
         }
     }
 
+    public boolean isElementClickable(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(driver, 2);
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public void invisibilityPreLoader() {
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//body[contains(@class, 'ajax-loading')]")));
     }
 
     protected boolean checkHTMLAttribute(WebElement element, String attribute, String name) {
-        String str = element.getAttribute(attribute);
-        if (str.equals(name)) {
-            return true;
+        try
+        {
+            String str = element.getAttribute(attribute);
+            if (str.equals(name)) {
+                return true;
+            }
+            return false;
         }
-        return false;
+        catch (Exception e)
+        {
+            return false;
+        }
+
     }
 
     public void waitAdminDefaultLoaderInvisible() {

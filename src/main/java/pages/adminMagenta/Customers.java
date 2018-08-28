@@ -89,6 +89,9 @@ public class Customers extends BasePage{
     @FindBy(name = "customer[website_id]")
     private WebElement websiteSelect;
 
+    @FindBy(css = ".message-success")
+    private WebElement successMessage;
+
 
     public void openNewCustomerForm() {
         invisibilityPreLoader();
@@ -103,7 +106,6 @@ public class Customers extends BasePage{
         type(emailField, users.getEmail());
         type(lastNameField, users.getLastUserName());
         type(firstNameField, users.getFirstUserName());
-       // websiteSelect.click();
     }
 
     public void fillAddressInfo(Users users) {
@@ -163,4 +165,11 @@ public class Customers extends BasePage{
         invisibilityPreLoader();
         return new Dashbord(driver);
     }
+
+    public Customers checkSuccessSavedCustomer() {
+        softAssert.assertEquals(successMessage.getText(), "You saved the customer.");
+        softAssert.assertAll();
+        return new Customers(driver);
+    }
+
 }

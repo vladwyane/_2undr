@@ -14,8 +14,6 @@ public class MyAccount extends BasePage{
         super(driver);
     }
 
-
-
     @Override
     public void open() {
 
