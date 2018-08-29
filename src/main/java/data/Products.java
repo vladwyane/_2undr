@@ -3,15 +3,19 @@ package data;
 public enum Products {
 
     GEAR_SHIFT_NIGHT_COMO("Underwear", "Gear Shift 9\" Long Leg - BLACK | NIGHT CAMO", "2U03LL-NC.037", "37", "Catalog, Search",
-            "Gear Shift", "China", "Long Leg", "14x9x6", "Gear Shift Long Leg", "2U03LLNC.png", "2U03LLB.png", "5", "1", "NIGHT CAMO"),
+            "Gear Shift", "China", "Long Leg", "14x9x6", "Gear Shift Long Leg", "2U03LLNC.png", "2U03LLB.png", "2U03LLB.png", "5", "1", "NIGHT CAMO"),
     GEAR_SHIFT_NIGHT_COMO2("Underwear", "Gear Shift 9\" Long Leg - BLACK | NIGHT CAMO", "2U03LL-NC.037", "37", "Catalog, Search",
-            "Gear Shift", "China", "Long Leg", "14x9x6", "Gear Shift Long Leg", "2u05ll-036_1_1.jpg", "2u05ll-036_1_1.jpg", "5", "1", "NIGHT CAMO"),
+            "Gear Shift", "China", "Long Leg", "14x9x6", "Gear Shift Long Leg", "2u05ll-036_1_1.jpg", "2U03LLB.png", "2u05ll-036_1_1.jpg", "5", "1", "NIGHT CAMO"),
     NIGHT_SHIFT_NAVY("Underwear", "Test Night Shift 6\" Boxer Brief - NAVY", "2U02BB-N.032", "32", "Catalog, Search",
-            "Night Shift", "China", "Boxer Brief", "14x9x6", "Night Shift Boxer Brief", "2U02BBN.png", "2U02BB.jpg", "50", "1", "Navy"),
+            "Night Shift", "China", "Boxer Brief", "14x9x6", "Night Shift Boxer Brief", "2U02BBN.png", "2U02BB.jpg", "2U03LLB.png","50", "1", "Navy"),
     NIGHT_SHIFT_CHARCOAL("Underwear", "Test Night Shift 6\" Boxer Brief - CHARCOAL", "2U02BB-Ch.033", "33", "Catalog, Search",
-            "Night Shift", "China", "Boxer Brief", "14x9x6", "Night Shift Boxer Brief", "2U02BBCh.png", "2U02BB.jpg", "20", "1", "Charcoal"),
+            "Night Shift", "China", "Boxer Brief", "14x9x6", "Night Shift Boxer Brief", "2U02BBCh.png", "2U02BB.jpg", "2U03LLB.png","20", "1", "Charcoal"),
     GEAR_SHIFT_BLUE_RIBBON("Underwear", "Gear Shift 9\" Long Leg - Blue Ribbon", "2U03LL-BR.039", "39", "Catalog, Search",
-            "Gear Shift", "China", "Long Leg", "14x9x6", "Gear Shift Long Leg", "2U03LLBR.png", "2U03LLBR.png", "10", "1", "Blue Ribbon");
+            "Gear Shift", "China", "Long Leg", "14x9x6", "Gear Shift Long Leg", "2U03LLBR.png", "2U03LLBR.png", "2U03LLB.png", "10", "1", "Blue Ribbon"),
+
+    SWING_SHIFT_2_PACK_BLACK_NIGHT_CAMO("Underwear", "SWING SHIFT - 6\" BOXER BRIEF - 2 PACK - BLACK | NIGHT CAMO", "2U012B.083", "45", "Catalog, " +
+            "Search", "Swing Shift", "China", "Boxer Brief", "14x9x6", "Swing Shift Boxer Brief", "swingshift2pack_black_nightcamo.jpg",
+            "nightshift_lightgrey_1.jpg", "swingshift_nightcamo_1.jpg", "50", "1", "Black");
 
 
     public String getAttributeSet() {
@@ -62,6 +66,10 @@ public enum Products {
         return secondImage;
     }
 
+    public String getThirdImage() {
+        return thirdImage;
+    }
+
     public String getQuantity() {
         return quantity;
     }
@@ -86,12 +94,13 @@ public enum Products {
     private String model;
     private String firstImage;
     private String secondImage;
+    private String thirdImage;
     private String quantity;
     private String weight;
     private String color;
 
-    Products(String attributeSet, String name, String sku, String price, String visibility, String category, String country,
-             String style, String dimension, String model, String firstImage, String secondImage, String quantity, String weight, String color) {
+    Products(String attributeSet, String name, String sku, String price, String visibility, String category, String country, String style,
+             String dimension, String model, String firstImage, String secondImage, String thirdImage, String quantity, String weight, String color) {
         this.attributeSet = attributeSet;
         this.name = name;
         this.sku = sku;
@@ -107,5 +116,6 @@ public enum Products {
         this.quantity = quantity;
         this.weight = weight;
         this.color = color;
+        this.thirdImage = thirdImage;
     }
 }

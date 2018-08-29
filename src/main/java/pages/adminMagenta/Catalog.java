@@ -166,6 +166,10 @@ public class Catalog extends BasePage {
     @FindBy(xpath = "(//span[contains(text(), 'Add Selected Products')])[1]")
     private WebElement addSelectedProdBut;
 
+    @FindBy(xpath = "//input[@name='name']")
+    private WebElement nameField;
+
+
 
     public Dashbord saveProduct() {
         saveProductBut.click();
@@ -295,15 +299,13 @@ public class Catalog extends BasePage {
         productContent.click();
         invisibilityPreLoader();
         driver.switchTo().frame(driver.findElement(By.id("product_form_description_ifr"))).findElement(By.id("tinymce"))
-                .sendKeys(Keys.chord(Keys.CONTROL, "b") + "Something Title" + Keys.ENTER  +
-                        "Professional level athletic performance led to the creation of the Power Shift ™ by 2UNDR™. " +
-                        "The thermal reduction Coldskin™ fabric by Garmatex™ is strategically sewn just below the 40 mm waistband - 2UNDR's thickest yet. " +
-                        "This extended Swass Patch ventilates and cools your lower back during intense activity.");
+                .sendKeys(Keys.chord(Keys.CONTROL, "b") + "Underwear Care Instructions" + Keys.ENTER  +
+                        "This 2-pack includes one pair of Black|Grey and one pair of Night Camo in our 6\" Swing Shift Boxer Brief.");
         driver.switchTo().defaultContent();
         driver.findElement(By.id("product_form_short_description_bullist")).click();
         driver.switchTo().frame(driver.findElement(By.id("product_form_short_description_ifr"))).findElement(By.id("tinymce"))
-                .sendKeys("Designed with athletes in mind" + Keys.ENTER + "Introducing a Breathable Athletic Mesh Back Panel" + Keys.ENTER +
-                "Compression-like feel" + Keys.ENTER + "Temperature control" + Keys.ENTER + "Worn by some of sports' biggest names");
+                .sendKeys("Ultra soft" + Keys.ENTER + "Signature Modal fabric" + Keys.ENTER +
+                "Shrink resistant material" + Keys.ENTER + "Remains soft even after repeated washing" + Keys.ENTER + "95% Lenzing Modal Beechwood Fiber, 5% Elastane");
         driver.switchTo().defaultContent();
     }
 
@@ -315,6 +317,8 @@ public class Catalog extends BasePage {
                 uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\" + products.getFirstImage());
             else if(i == 1)
                 uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\" + products.getSecondImage());
+            else if(i == 2)
+                uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\" + products.getThirdImage());
             else break;
         }
         invisibilityPreLoader();
@@ -399,13 +403,14 @@ public class Catalog extends BasePage {
         listUnderwearColors.get(listUnderwearColors.size() - 1).click();
     }
 
-    public void chooseRelatedProducts(int amount) {
+    public void chooseRelatedProducts(int amount, String filterName) {
         relatedProductsection.click();
         addRelatedProdBut.click();
         waitRelatedModalSlideVisible();
         waitAdminDefaulLoaderModalSlideInvisible();
         filterBut.click();
         invisibilityPreLoader();
+        type(nameField, filterName);
         chooseAttributeType("Configurable Product");
         applyFilterBut.click();
         invisibilityPreLoader();

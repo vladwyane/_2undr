@@ -50,7 +50,7 @@ public class MakeOrderTest extends TestBase{
         accountPopup.signIn(Users.LEBRON);
         collections.open();
         collections.chooseCollections(Category.GEARSHIFT);
-        String titleAddedToShoppingCart = collections.addProductInStockToShopCart(37.0, "1");
+        String titleAddedToShoppingCart = collections.addProductInStockToShopCart(51.0, "1");
         shoppingCart.open();
         shoppingCart.clickCheckoutBut();
         shippingMethod.fillShippingAddressForUSA(Users.LEBRON);

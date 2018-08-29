@@ -60,8 +60,8 @@ public class PaymentMethod extends BasePage{
         if(nameMethod.equals("CreditCart"))
             listPaymentMethod.get(0).click();
         else if(nameMethod.equals("PayPal"))
-            listPaymentMethod.get(2).click();
-        else listPaymentMethod.get(1).click();
+            listPaymentMethod.get(1).click();
+        else listPaymentMethod.get(2).click();
     }
 
     public void fillPaymentInfo(CreditCarts creditCarts) {

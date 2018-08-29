@@ -23,11 +23,12 @@ public class MagentaCatalogTest extends TestBase{
         dashbord.signIn(Users.ADMIN);
     }
 
+/*
     @Test(description = "Test of creating product from admin")
     public void testCreateProductGearShiftBlack() throws Exception {
         catalog.openNewProductForm();
         catalog.fillingProductInfo(Products.GEAR_SHIFT_NIGHT_COMO);
-        catalog.chooseRelatedProducts(5);
+        catalog.chooseRelatedProducts(5, "Night shift");
         catalog.fillProductContent();
         catalog.createProductConfiguration(Products.GEAR_SHIFT_NIGHT_COMO);
         catalog.uploadProductImage(Products.GEAR_SHIFT_NIGHT_COMO, 2);
@@ -61,7 +62,7 @@ public class MagentaCatalogTest extends TestBase{
     public void testCreateProductNightShiftNavy() throws Exception {
         catalog.openNewProductForm();
         catalog.fillingProductInfo(Products.NIGHT_SHIFT_NAVY);
-        catalog.chooseRelatedProducts(4);
+        catalog.chooseRelatedProducts(4, "Night shift");
         catalog.fillProductContent();
         catalog.createProductConfiguration(Products.NIGHT_SHIFT_NAVY);
         catalog.uploadProductImage(Products.NIGHT_SHIFT_NAVY, 2);
@@ -73,11 +74,23 @@ public class MagentaCatalogTest extends TestBase{
     public void testCreateProductNightShiftCharcoal() throws Exception {
         catalog.openNewProductForm();
         catalog.fillingProductInfo(Products.NIGHT_SHIFT_CHARCOAL);
-        catalog.chooseRelatedProducts(7);
+        catalog.chooseRelatedProducts(7, "Night shift");
         catalog.fillProductContent();
         catalog.createProductConfiguration(Products.NIGHT_SHIFT_CHARCOAL);
         catalog.uploadProductImage(Products.NIGHT_SHIFT_CHARCOAL, 2);
         catalog.chooseUndewearColor(Products.NIGHT_SHIFT_CHARCOAL);
+        catalog.saveProduct();
+    }
+*/
+
+    @Test(description = "Test of creating product from admin", alwaysRun = true)
+    public void testCreateProductNightShiftCharcoal() throws Exception {
+        catalog.openNewProductForm();
+        catalog.fillingProductInfo(Products.SWING_SHIFT_2_PACK_BLACK_NIGHT_CAMO);
+        catalog.chooseRelatedProducts(5, "Swing shift");
+        catalog.fillProductContent();
+        catalog.createProductConfiguration(Products.SWING_SHIFT_2_PACK_BLACK_NIGHT_CAMO);
+        catalog.uploadProductImage(Products.SWING_SHIFT_2_PACK_BLACK_NIGHT_CAMO, 3);
         catalog.saveProduct();
     }
 
