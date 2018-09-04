@@ -3,19 +3,19 @@ package data;
 public enum Products {
 
     GEAR_SHIFT_NIGHT_COMO("Underwear", "Gear Shift 9\" Long Leg - BLACK | NIGHT CAMO", "2U03LL-NC.037", "37", "Catalog, Search",
-            "Gear Shift", "China", "Long Leg", "14x9x6", "Gear Shift Long Leg", "2U03LLNC.png", "2U03LLB.png", "2U03LLB.png", "5", "1", "NIGHT CAMO"),
+            "Gear Shift", "China", "Long Leg", "14x9x6", "Gear Shift Long Leg", "images/2U03LLNC.png", "images/2U03LLB.png", "images/2U03LLB.png", "5", "1", "NIGHT CAMO"),
     GEAR_SHIFT_NIGHT_COMO2("Underwear", "Gear Shift 9\" Long Leg - BLACK | NIGHT CAMO", "2U03LL-NC.037", "37", "Catalog, Search",
-            "Gear Shift", "China", "Long Leg", "14x9x6", "Gear Shift Long Leg", "2u05ll-036_1_1.jpg", "2U03LLB.png", "2u05ll-036_1_1.jpg", "5", "1", "NIGHT CAMO"),
+            "Gear Shift", "China", "Long Leg", "14x9x6", "Gear Shift Long Leg", "2u05ll-036_1_1.jpg", "images/2U03LLB.png", "2u05ll-036_1_1.jpg", "5", "1", "NIGHT CAMO"),
     NIGHT_SHIFT_NAVY("Underwear", "Test Night Shift 6\" Boxer Brief - NAVY", "2U02BB-N.032", "32", "Catalog, Search",
-            "Night Shift", "China", "Boxer Brief", "14x9x6", "Night Shift Boxer Brief", "2U02BBN.png", "2U02BB.jpg", "2U03LLB.png","50", "1", "Navy"),
+            "Night Shift", "China", "Boxer Brief", "14x9x6", "Night Shift Boxer Brief", "images/2U02BBN.png", "images/2U02BB.jpg", "images/2U03LLB.png","50", "1", "Navy"),
     NIGHT_SHIFT_CHARCOAL("Underwear", "Test Night Shift 6\" Boxer Brief - CHARCOAL", "2U02BB-Ch.033", "33", "Catalog, Search",
-            "Night Shift", "China", "Boxer Brief", "14x9x6", "Night Shift Boxer Brief", "2U02BBCh.png", "2U02BB.jpg", "2U03LLB.png","20", "1", "Charcoal"),
+            "Night Shift", "China", "Boxer Brief", "14x9x6", "Night Shift Boxer Brief", "images/2U02BBCh.png", "images/2U02BB.jpg", "images/2U03LLB.png","20", "1", "Charcoal"),
     GEAR_SHIFT_BLUE_RIBBON("Underwear", "Gear Shift 9\" Long Leg - Blue Ribbon", "2U03LL-BR.039", "39", "Catalog, Search",
-            "Gear Shift", "China", "Long Leg", "14x9x6", "Gear Shift Long Leg", "2U03LLBR.png", "2U03LLBR.png", "2U03LLB.png", "10", "1", "Blue Ribbon"),
+            "Gear Shift", "China", "Long Leg", "14x9x6", "Gear Shift Long Leg", "images/2U03LLBR.png", "images/2U03LLBR.png", "images/2U03LLB.png", "10", "1", "Blue Ribbon"),
 
     SWING_SHIFT_2_PACK_BLACK_NIGHT_CAMO("Underwear", "SWING SHIFT - 6\" BOXER BRIEF - 2 PACK - BLACK | NIGHT CAMO", "2U012B.083", "45", "Catalog, " +
-            "Search", "Swing Shift", "China", "Boxer Brief", "14x9x6", "Swing Shift Boxer Brief", "swingshift2pack_black_nightcamo.jpg",
-            "nightshift_lightgrey_1.jpg", "swingshift_nightcamo_1.jpg", "50", "1", "Black");
+            "Search", "Swing Shift", "China", "Boxer Brief", "14x9x6", "Swing Shift Boxer Brief", "images/swingshift2pack_black_nightcamo.jpg",
+            "images/nightshift_lightgrey_1.jpg", "images/swingshift_nightcamo_1.jpg", "50", "1", "Black");
 
 
     public String getAttributeSet() {

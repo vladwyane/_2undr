@@ -1,6 +1,7 @@
 package pages.adminMagenta;
 
 import data.Products;
+import data.ProductsData;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -314,11 +315,26 @@ public class Catalog extends BasePage {
         for (int i = 0; i < amountImage; i++) {
             invisibilityPreLoader();
             if(i == 0)
-                uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\" + products.getFirstImage());
+                uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\images\\" + products.getFirstImage());
             else if(i == 1)
-                uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\" + products.getSecondImage());
+                uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\images\\" + products.getSecondImage());
             else if(i == 2)
-                uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\" + products.getThirdImage());
+                uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\images\\" + products.getThirdImage());
+            else break;
+        }
+        invisibilityPreLoader();
+    }
+
+    public void uploadProductImageFromJson(ProductsData products, int amountImage) {
+        productImage.click();
+        for (int i = 0; i < amountImage; i++) {
+            invisibilityPreLoader();
+            if(i == 0)
+                uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\images\\" + products.getFirstImage());
+            else if(i == 1)
+                uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\images\\" + products.getSecondImage());
+            else if(i == 2)
+                uploadFileBut.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\images\\" + products.getThirdImage());
             else break;
         }
         invisibilityPreLoader();
@@ -327,7 +343,16 @@ public class Catalog extends BasePage {
     public void createProductConfiguration(Products products) {
         createConfigBut.click();
         createProdConfigStep1("size");
-        createProdConfigStep2(new String[] {"XS", "M", "S", "L", "XL", "2XL"});
+        createProdConfigStep2(new String[] {"M", "S", "L", "XL"});
+        createProdConfigStep3(products.getFirstImage(), products.getPrice(), products.getQuantity());
+        createProdConfigStep4();
+        addingWeightForVariation(products.getWeight());
+    }
+
+    public void createProductConfigurationFromJson(ProductsData products) {
+        createConfigBut.click();
+        createProdConfigStep1("size");
+        createProdConfigStep2(new String[] {"M", "S", "L", "XL"});
         createProdConfigStep3(products.getFirstImage(), products.getPrice(), products.getQuantity());
         createProdConfigStep4();
         addingWeightForVariation(products.getWeight());
@@ -354,7 +379,7 @@ public class Catalog extends BasePage {
     public void createProdConfigStep3(String imageName, String price, String quantity) {
         applySingleImageRadioBut.click();
         invisibilityPreLoader();
-        uploadApplySingleImage.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\" + imageName);
+        uploadApplySingleImage.sendKeys(System.getProperty("user.dir") + "\\src\\main\\resources\\images\\" + imageName);
         applySinglePriceRadioBut.click();
         invisibilityPreLoader();
         type(applySinglePriceField, price);
@@ -380,7 +405,32 @@ public class Catalog extends BasePage {
         listUnderwearColors.get(listUnderwearColors.size() - 1).click();
     }
 
+    public void chooseUndewearColorFromJson(ProductsData products) {
+        underwearSection.click();
+        underwearColorSelect.click();
+        for (int i = 0; i < listUnderwearColors.size(); i++) {
+            if(Integer.parseInt(products.getColor()) == i) {
+                listUnderwearColors.get(i).click();
+                return;
+            }
+        }
+        listUnderwearColors.get(listUnderwearColors.size() - 1).click();
+    }
+
     public void fillingProductInfo(Products products) {
+        chooseAttributSet(products.getAttributeSet());
+        type(productName, products.getName());
+        type(productSKU, products.getSku());
+        type(productPrice, products.getPrice());
+        chooseVisibilityValue(products.getVisibility());
+        chooseCategory("Underwear", "Collections", products.getCategory());
+        chooseCountryOfManufac(products.getCountry());
+        chooseProductStyle(products.getStyle());
+        type(dimensionsField, products.getDimension());
+        chooseProductModel(products.getModel());
+    }
+
+    public void fillingProductInfoFromJson(ProductsData products) {
         chooseAttributSet(products.getAttributeSet());
         type(productName, products.getName());
         type(productSKU, products.getSku());
@@ -416,6 +466,7 @@ public class Catalog extends BasePage {
         invisibilityPreLoader();
         clickCheckboxProduct(amount);
         addSelectedProdBut.click();
+        invisibilityPreLoader();
     }
 
     public void addingWeightForVariation(String valueWeight) {

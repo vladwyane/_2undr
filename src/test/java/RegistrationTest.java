@@ -39,14 +39,14 @@ public class RegistrationTest extends TestBase{
         accountPopup.clickCreateAccBut();
         createAccount.registrationWithoutNewsletter(Users.DWYANE);
         myAccount.invisibilityPreLoader();
-        myAccount.checkDashbordInfoAfterReg(Users.DWYANE);
+        myAccount.checkDashboardInfoAfterReg(Users.DWYANE);
     }
 
     @Test(description = "Test of login user with valid data", priority = 2)
     public void testLoginUser() throws InterruptedException {
         accountPopup.signIn(Users.LEBRON);
         myAccount.invisibilityPreLoader();
-        myAccount.checkDashbordInfo(Users.LEBRON);
+        myAccount.checkDashboardInfo(Users.LEBRON);
     }
 
     @Test(description = "Test of login user with invalid data",priority = 3)

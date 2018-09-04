@@ -48,7 +48,7 @@ public class MyAccount extends BasePage{
         return accountTitle.getText();
     }
 
-    public MyAccount checkDashbordInfo(Users users) {
+    public MyAccount checkDashboardInfo(Users users) {
         String title = getAccountTitle();
         String activeAccountNavItem = getActiveAccountNavItem().getText();
         String actualEmail = emailFromDashbordInfo.getText();
@@ -62,7 +62,7 @@ public class MyAccount extends BasePage{
         return new MyAccount(driver);
     }
 
-    public MyAccount checkDashbordInfoAfterReg(Users users) {
+    public MyAccount checkDashboardInfoAfterReg(Users users) {
         String title = getAccountTitle();
         String activeAccountNavItem = getActiveAccountNavItem().getText();
         String actualEmail = emailFromDashbordInfo.getText();

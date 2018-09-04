@@ -1,21 +1,47 @@
 package adminMagentaTest;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import data.Products;
+import data.ProductsData;
 import data.Users;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.adminMagenta.Catalog;
-import pages.adminMagenta.Customers;
 import pages.adminMagenta.Dashbord;
 import testBase.TestBase;
 import utils.Wait;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class MagentaCatalogTest extends TestBase{
 
     private Dashbord dashbord = PageFactory.initElements(initDriver(), Dashbord.class);
     private Wait wait = PageFactory.initElements(initDriver(), Wait.class);
     private Catalog catalog = PageFactory.initElements(initDriver(), Catalog.class);
+
+    @DataProvider
+    public Iterator<Object[]> validProductsFromJson() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/main/resources/products.json")));
+        String json = "";
+        String line = reader.readLine();
+        while(line != null) {
+            json += line;
+            line = reader.readLine();
+        }
+        Gson gson = new Gson();
+        List<ProductsData> productsData = gson.fromJson(json, new TypeToken<List<ProductsData>>(){}.getType());
+        return productsData.stream().map((p) -> new Object[] {p}).collect(Collectors.toList()).iterator();
+    }
 
     @BeforeMethod
     public void preCondition() {
@@ -69,22 +95,25 @@ public class MagentaCatalogTest extends TestBase{
         catalog.chooseUndewearColor(Products.NIGHT_SHIFT_NAVY);
         catalog.saveProduct();
     }
-
-    @Test(description = "Test of creating product from admin", alwaysRun = true)
-    public void testCreateProductNightShiftCharcoal() throws Exception {
-        catalog.openNewProductForm();
-        catalog.fillingProductInfo(Products.NIGHT_SHIFT_CHARCOAL);
-        catalog.chooseRelatedProducts(7, "Night shift");
-        catalog.fillProductContent();
-        catalog.createProductConfiguration(Products.NIGHT_SHIFT_CHARCOAL);
-        catalog.uploadProductImage(Products.NIGHT_SHIFT_CHARCOAL, 2);
-        catalog.chooseUndewearColor(Products.NIGHT_SHIFT_CHARCOAL);
-        catalog.saveProduct();
-    }
 */
 
-    @Test(description = "Test of creating product from admin", alwaysRun = true)
-    public void testCreateProductNightShiftCharcoal() throws Exception {
+
+
+    @Test(dataProvider = "validProductsFromJson")
+    public void testCreateProductNightShiftCharcoal(ProductsData productsData) throws Exception {
+        catalog.openNewProductForm();
+        catalog.fillingProductInfoFromJson(productsData);
+        catalog.chooseRelatedProducts(7, "Night shift");
+        catalog.fillProductContent();
+        catalog.createProductConfigurationFromJson(productsData);
+        catalog.uploadProductImageFromJson(productsData, 3);
+        catalog.chooseUndewearColorFromJson(productsData);
+        catalog.saveProduct();
+    }
+
+
+    @Test(dataProvider = "validProductsFromJson")
+    public void testCreateProductSwingShiftCharcoal(ProductsData productsData) throws InterruptedException {
         catalog.openNewProductForm();
         catalog.fillingProductInfo(Products.SWING_SHIFT_2_PACK_BLACK_NIGHT_CAMO);
         catalog.chooseRelatedProducts(5, "Swing shift");
