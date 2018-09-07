@@ -80,7 +80,7 @@ public class MyAccount extends BasePage{
 
     public MyAccount checkSuccessMes() {
         String str = getSuccessMessReg();
-        Assert.assertEquals(str, "THANK YOU FOR REGISTERING WITH MAIN WEBSITE STORE.");
+        Assert.assertEquals(str, "THANK YOU FOR REGISTERING WITH 2UNDR.");
         return new MyAccount(driver);
     }
 

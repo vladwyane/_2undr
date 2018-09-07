@@ -45,7 +45,7 @@ public class MakeOrderTest extends TestBase{
         accountPopup.signIn(Users.LEBRON);
         collections.open();
       //  collections.chooseCollections(Category.GEARSHIFT);
-        collections.addProductInStockToShopCart(37.0, "5");
+        collections.addProductInStockToShopCart(35.0, "5");
         shoppingCart.open();
         shoppingCart.clickCheckoutBut();
         shippingMethod.fillShippingAddressForUSA(Users.LEBRON);
@@ -62,7 +62,7 @@ public class MakeOrderTest extends TestBase{
         accountPopup.signIn(Users.LEBRON);
         collections.open();
         collections.chooseCollections(Category.GEARSHIFT);
-        String titleAddedToShoppingCart = collections.addProductInStockToShopCart(51.0, "1");
+        String titleAddedToShoppingCart = collections.addProductInStockToShopCart(30.0, "1");
         shoppingCart.open();
         shoppingCart.clickCheckoutBut();
         shippingMethod.fillShippingAddressForUSA(Users.LEBRON);

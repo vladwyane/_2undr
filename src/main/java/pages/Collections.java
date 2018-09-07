@@ -30,7 +30,7 @@ public class Collections extends BasePage {
         invisibilityPreLoader();
     }
 
-    @FindBys({@FindBy(xpath = "//div[@class='collection']//span[contains(@class, 'name')]")})
+    @FindBys({@FindBy(xpath = "//div[@class='collection-inner']//span[contains(@class, 'name')]")})
     private List<WebElement> listProduct;
 
     @FindBys({@FindBy(xpath = "//a[contains(@class, 'secondary')]")})
@@ -173,8 +173,7 @@ public class Collections extends BasePage {
             WebElement titleCol = listProduct.get(i);
             String nameTitle = titleCol.getText();
             if (nameTitle.equals(category.getCollectionName())) {
-                WebElement button = butShow.get(i);
-                button.click();
+                listProduct.get(i).click();
                 break;
             }
         }
@@ -220,6 +219,14 @@ public class Collections extends BasePage {
         String actualTotal = String.valueOf(actTotal);
         Assert.assertEquals(actualTotal, expectedTotal);
         return new Collections(driver);
+    }
+
+    public boolean checkingIncorrectSymbol() {
+        for (int i = 0; i < productsTitle.size(); i++) {
+            if(productsTitle.get(i).getText().contains("\""))
+                return false;
+        }
+        return true;
     }
 
     public void waitVissibleAddToCartPopap() {
